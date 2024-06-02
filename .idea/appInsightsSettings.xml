@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sevenexp.craftit" />
+                  <option name="mobileSdkAppId" value="1:565425454218:android:e0e076684e71b55b464173" />
+                  <option name="projectId" value="itzanka-6fc19" />
+                  <option name="projectNumber" value="565425454218" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

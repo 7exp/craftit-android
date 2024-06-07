@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_discovery"
         android:name="com.sevenexp.craftit.ui.discovery.DiscoveryFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_discovery"
         tools:layout="@layout/fragment_discovery" />
 
     <fragment

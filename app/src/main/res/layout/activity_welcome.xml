@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:theme="@style/Theme.CraftIt">
 
-
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/image_slider"
         android:layout_width="wrap_content"
@@ -14,6 +13,7 @@
         app:iss_auto_cycle="true"
         app:iss_period="10000"
         app:iss_delay="1000"
+        app:iss_placeholder="@drawable/welcome_image_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ll_container"

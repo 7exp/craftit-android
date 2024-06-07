@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.ui.welcome
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +12,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityWelcomeBinding
+import com.sevenexp.craftit.ui.auth.login.LoginActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private val binding by lazy { ActivityWelcomeBinding.inflate(layoutInflater) }
@@ -19,8 +21,17 @@ class WelcomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        binding.apply {
+            btnLogin.setOnClickListener { toActivity(LoginActivity::class.java) }
+            btnRegister.setOnClickListener { }
+        }
+
         setupSlider()
         setupTitle()
+    }
+
+    private fun toActivity(name: Class<*>) {
+        startActivity(Intent(this, name))
     }
 
     private fun setupSlider() {
@@ -51,9 +62,5 @@ class WelcomeActivity : AppCompatActivity() {
         )
 
         binding.tvTitle.text = spannable
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

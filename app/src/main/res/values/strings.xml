@@ -1,20 +1,13 @@
 <resources>
     <string name="app_name">Craft It</string>
-    <string name="web_client_id">565425454218-8j4430r8chi7tq0qtig74jkk0gcghk3e.apps.googleusercontent.com</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_discovery">Discovery</string>
+    <string name="text_welcome_desc">Discover the fun in recycling through creative crafting with our community app. Explore endless crafting ideas that transform everyday waste into beautiful and useful items. Join a community of eco-conscious crafters, share your projects, and get inspired by others.</string>
+    <string name="text_welcome_title">Turn Your Waste Into Something Beautiful!. Let’s Recycle for Sustainable Future</string>
+    <string name="text_register">Register</string>
+    <string name="text_login">Login</string>
 </resources>

@@ -56,5 +56,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.glide)
-    implementation ("com.github.smarteist:Android-Image-Slider:1.4.0")
+    implementation (libs.imageslideshow)
 }

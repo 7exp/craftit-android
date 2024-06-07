@@ -21,6 +21,7 @@
             android:label="@string/title_activity_main" />
         <activity
             android:name=".ui.MainActivity"
+            android:theme="@style/Theme.CraftIt.ActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

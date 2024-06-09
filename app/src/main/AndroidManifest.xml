@@ -28,6 +28,7 @@
             android:theme="@style/Theme.CraftIt.ActionBar" />
         <activity
             android:name=".ui.welcome.WelcomeActivity"
+            android:theme="@style/Theme.CraftIt.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

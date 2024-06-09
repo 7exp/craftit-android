@@ -24,6 +24,7 @@ import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityWelcomeBinding
 import com.sevenexp.craftit.ui.MainActivity
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
+import com.sevenexp.craftit.ui.auth.register.RegisterActivity
 import com.sevenexp.craftit.utils.ResultState
 
 class WelcomeActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class WelcomeActivity : AppCompatActivity() {
 
         binding.apply {
             btnLogin.setOnClickListener { toActivity(LoginActivity::class.java) }
-            btnRegister.setOnClickListener { }
+            btnRegister.setOnClickListener { toActivity(RegisterActivity::class.java) }
         }
 
         setupSlider()

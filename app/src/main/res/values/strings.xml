@@ -15,4 +15,6 @@
     <string name="text_password">password</string>
     <string name="no_account">don\'t have account?</string>
     <string name="text_username">username</string>
+    <string name="not_an_email">Your email is invalid</string>
+    <string name="not_a_password">Your password should be longer</string>
 </resources>

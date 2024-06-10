@@ -14,7 +14,6 @@
         android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/back"
-        android:onClick="onBackPressed"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -97,6 +96,7 @@
             app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeColor="@color/primary"
+            app:passwordToggleEnabled="true"
             app:hintTextColor="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,6 +111,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_register"
             style="@style/Theme.CraftIt.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

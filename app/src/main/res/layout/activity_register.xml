@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:fitsSystemWindows="true"
     tools:context=".ui.auth.register.RegisterActivity">
 
     <ImageButton
@@ -14,7 +14,6 @@
         android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/back"
-        android:onClick="onBackPressed"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +22,9 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:layout_marginTop="32dp"
-        android:text="@string/text_login"
+        android:text="@string/text_register"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,6 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +48,9 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp">
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_name"
@@ -56,7 +59,7 @@
                 android:drawableStart="@drawable/ic_user"
                 android:drawablePadding="16dp"
                 android:hint="@string/text_username"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +71,9 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp">
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_email"
@@ -89,7 +94,10 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp">
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="@color/primary"
+            app:passwordToggleEnabled="true"
+            app:hintTextColor="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_password"
@@ -98,11 +106,12 @@
                 android:drawableStart="@drawable/ic_lock"
                 android:drawablePadding="16dp"
                 android:hint="@string/text_password"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_register"
             style="@style/Theme.CraftIt.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,7 +132,7 @@
                 android:id="@+id/label_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_account" />
+                android:text="@string/have_account" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -132,7 +141,7 @@
                 android:background="@android:color/transparent"
                 android:minWidth="0dp"
                 android:padding="8dp"
-                android:text="@string/text_register"
+                android:text="@string/text_login"
                 android:textColor="@color/primary"
                 android:textStyle="bold"
                 app:iconPadding="0dp" />

@@ -17,12 +17,14 @@
     <style name="Theme.CraftIt.Button.Primary" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/onPrimary</item>
         <item name="backgroundTint">@color/primary</item>
+        <item name="rippleColor">@color/primary100</item>
         <item name="cornerRadius">8dp</item>
     </style>
 
     <style name="Theme.CraftIt.Button.Secondary" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/onBase</item>
         <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@color/primary100</item>
         <item name="strokeColor">@color/onBase</item>
         <item name="strokeWidth">2dp</item>
         <item name="cornerRadius">8dp</item>

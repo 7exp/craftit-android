@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_user"
+            android:scaleType="centerCrop"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jane Doe"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_marginStart="8dp"
+            android:layout_alignTop="@id/profile_image" />
+
+        <TextView
+            android:id="@+id/user_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anything"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/user_name" />
+
+        <ImageView
+            android:id="@+id/more_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_more_vert"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/post_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DIY How to Make Fabric Candy Decorations - Fake Wrapped Sw...."
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/post_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bravo Dada in Sewing"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:paddingTop="4dp" />
+
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/welcome_image_1"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="120"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:drawableLeft="@drawable/ic_thumb_up"
+            android:drawablePadding="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/comments_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="80"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:drawableLeft="@drawable/ic_comment"
+            android:drawablePadding="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/shares_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:drawableLeft="@drawable/ic_share"
+            android:drawablePadding="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+</LinearLayout>

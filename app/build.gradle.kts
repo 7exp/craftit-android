@@ -47,6 +47,7 @@ android {
 dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.datastore.preferences.core.jvm)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
@@ -88,4 +89,5 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
     implementation(libs.imageslideshow)
+    implementation("com.adnroid.support:design:29.0.0")
 }

@@ -13,4 +13,6 @@
     <color name="text">#949494</color>
     <color name="textVariant">#6f746e</color>
     <color name="textSecondary">#9fa3af</color>
+    <color name="warning">#f5a623</color>
+    <color name="info">#4a90e2</color>
 </resources>

@@ -23,4 +23,6 @@
     <string name="register_failed">Register Failed</string>
     <string name="err_email_already_registered">Email already registered</string>
     <string name="not_empty">Please fill this</string>
+    <string name="error_password_empty">Password must not be empty</string>
+    <string name="error_email_empty">Email must not be empty</string>
 </resources>

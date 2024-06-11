@@ -7,8 +7,8 @@ data class LoginResponse(
 )
 
 data class LoginDataResponse(
-	val address: String? = null,
-	val name: String? = null,
-	val id: String? = null
+	val address: String,
+	val name: String,
+	val id: String
 )
 

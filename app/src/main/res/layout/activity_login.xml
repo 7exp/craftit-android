@@ -22,6 +22,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/text_login"
         android:textSize="36sp"
@@ -32,6 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +51,7 @@
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeColor="@color/primary"
             app:hintTextColor="@color/primary">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_email"
                 android:layout_width="match_parent"
@@ -72,8 +75,7 @@
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeColor="@color/primary"
             app:hintTextColor="@color/primary"
-            app:passwordToggleEnabled="true"
-            app:boxCornerRadiusTopStart="16dp">
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_password"
@@ -129,4 +131,6 @@
         android:id="@+id/loading"
         layout="@layout/loading_components"
         android:visibility="gone" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

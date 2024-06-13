@@ -1,127 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/base"
     tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/base"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/base"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
                 app:layout_collapseMode="parallax">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="16dp">
 
                     <TextView
                         android:id="@+id/greeting"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:maxLines="1"
+                        android:text="@string/text_welcome"
+                        android:textColor="@color/primary"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/profile_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Jane"
-                        android:textColor="@color/primary"
-                        android:textSize="24sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingBottom="8dp"
-                        android:layout_alignParentStart="true"/>
+                        android:fontFamily="sans-serif"
+                        android:text="@string/text_home_subgreeting"
+                        android:textColor="@color/onBase400"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/greeting" />
 
                     <ImageView
                         android:id="@+id/profile_image"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_user"
+                        android:contentDescription="@string/help_user_photo"
                         android:scaleType="centerCrop"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_centerVertical="true"/>
-                </RelativeLayout>
+                        android:src="@drawable/ic_user"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mari kita mendaur ulang demi kebaikan alam"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif"
-                    android:paddingBottom="8dp"/>
-                <RelativeLayout
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_collapseMode="parallax">
+                    android:layout_height="wrap_content">
 
                     <com.google.android.material.search.SearchBar
                         android:id="@+id/searchbar"
-                        android:layout_width="265dp"
-                        android:layout_height="wrap_content"
-                        android:hint="search"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_margin="0dp"
+                        android:background="@drawable/small_button_background"
+                        android:backgroundTint="#efefef"
+                        android:hint="@string/hint_search"
                         android:iconifiedByDefault="false"
-                        app:layout_collapseMode="parallax" />
-                <com.google.android.material.search.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:hint="search"
-                    app:layout_anchor="@id/searchbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                </com.google.android.material.search.SearchView>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/btn_image_search"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="53dp"
-                        android:layout_height="40dp"
-                        android:layout_alignEnd="@+id/searchbar"
-                        android:layout_alignBottom="@+id/searchbar"
-                        android:layout_marginEnd="-75dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/ic_camera" />
+                    <com.google.android.material.search.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:hint="@string/hint_search"
+                        app:layout_anchor="@id/searchbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                    <ImageButton
+                        android:id="@+id/btn_image_search"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/small_button_background"
+                        android:backgroundTint="#EFEFEF"
+                        android:contentDescription="@string/help_search_with_image"
+                        android:padding="0dp"
+                        android:src="@drawable/ic_camera"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="8dp"
+                    android:paddingHorizontal="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="For You"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/text_lets_continue"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:fontFamily="sans-serif-medium"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="More"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp"
+                        android:layout_alignParentEnd="true"
                         android:fontFamily="sans-serif"
-                        android:layout_alignParentEnd="true"/>
+                        android:text="@string/text_more"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -134,6 +157,30 @@
                     tools:listitem="@layout/item_continue">
 
                 </androidx.recyclerview.widget.RecyclerView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/text_for_you"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/text_more"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+                </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -142,41 +189,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Continue"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="More"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif"
-                android:layout_alignParentEnd="true"/>
-        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/continue_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:clipToPadding="false"
+            android:orientation="horizontal"
             android:paddingBottom="16dp"
             android:scrollbars="horizontal"
+            tools:listitem="@layout/item_post" />
 
-            tools:listitem="@layout/item_post"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

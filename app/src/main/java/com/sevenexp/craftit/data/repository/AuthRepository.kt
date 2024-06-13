@@ -1,7 +1,8 @@
 package com.sevenexp.craftit.data.repository
 
 import com.sevenexp.craftit.data.source.remote.ApiService
-import com.sevenexp.craftit.data.source.remote.RegisterRequest
+import com.sevenexp.craftit.data.source.remote.request.LoginRequest
+import com.sevenexp.craftit.data.source.remote.request.RegisterRequest
 import com.sevenexp.craftit.domain.interfaces.AuthRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -14,6 +15,6 @@ class AuthRepository(private val apiService: ApiService) : AuthRepositoryInterfa
     }.flowOn(Dispatchers.IO)
 
     override fun login(email: String, password: String) = flow {
-        emit(apiService.login(email, password))
+        emit(apiService.login(LoginRequest(email, password)))
     }.flowOn(Dispatchers.IO)
 }

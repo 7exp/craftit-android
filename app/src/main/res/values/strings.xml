@@ -34,5 +34,13 @@
     <string name="text_home_subgreeting">Let’s recycle for good of nature</string>
     <string name="hint_search">search</string>
     <string name="help_search_with_image">search with image</string>
+    <string name="text_lets_continue">Let\'s continue!</string>
+    <string name="text_more">More</string>
+    <string name="text_for_you">For you</string>
+    <string name="desc_user_profile_photo">user profile photo</string>
+    <string name="help_option">option</string>
+    <string name="step">step</string>
+    <string name="gallery">gallery</string>
+    <string name="like">like</string>
 
 </resources>

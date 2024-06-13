@@ -4,19 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/base"
     tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/base"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/base"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -84,7 +87,8 @@
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_margin="0dp"
-                        android:background="#EFEFEF"
+                        android:background="@drawable/small_button_background"
+                        android:backgroundTint="#efefef"
                         android:hint="@string/hint_search"
                         android:iconifiedByDefault="false"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,14 +96,26 @@
                         app:layout_constraintRight_toLeftOf="@+id/btn_image_search"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.search.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:hint="@string/hint_search"
+                        app:layout_anchor="@id/searchbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageButton
                         android:id="@+id/btn_image_search"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_alignEnd="@+id/searchbar"
-                        android:layout_alignBottom="@+id/searchbar"
                         android:layout_marginEnd="16dp"
+                        android:background="@drawable/small_button_background"
+                        android:backgroundTint="#EFEFEF"
                         android:contentDescription="@string/help_search_with_image"
+                        android:padding="0dp"
                         android:src="@drawable/ic_camera"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -110,7 +126,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:paddingHorizontal="16dp">
 
@@ -118,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="For You"
+                        android:text="@string/text_lets_continue"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
@@ -127,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:fontFamily="sans-serif"
-                        android:text="More"
+                        android:text="@string/text_more"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -142,6 +157,30 @@
                     tools:listitem="@layout/item_continue">
 
                 </androidx.recyclerview.widget.RecyclerView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/text_for_you"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/text_more"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+                </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -150,31 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Continue"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:fontFamily="sans-serif"
-                android:text="More"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp" />
-        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/continue_recycler_view"
@@ -184,18 +199,7 @@
             android:orientation="horizontal"
             android:paddingBottom="16dp"
             android:scrollbars="horizontal"
-
             tools:listitem="@layout/item_post" />
 
-        <com.google.android.material.search.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:hint="@string/hint_search"
-            app:layout_anchor="@id/searchbar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

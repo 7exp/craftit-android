@@ -16,4 +16,5 @@
     <color name="warning">#f5a623</color>
     <color name="info">#4a90e2</color>
     <color name="overlay">#40000000</color>
+    <color name="onBase400">#949494</color>
 </resources>

@@ -1,22 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_collapseMode="parallax">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/greeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hi, Jane"
+                        android:textColor="@color/primary"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingBottom="8dp"
+                        android:layout_alignParentStart="true"/>
+
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_user"
+                        android:scaleType="centerCrop"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mari kita mendaur ulang demi kebaikan alam"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif"
+                    android:paddingBottom="8dp"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="parallax">
+
+                    <com.google.android.material.search.SearchBar
+                        android:id="@+id/searchbar"
+                        android:layout_width="265dp"
+                        android:layout_height="wrap_content"
+                        android:hint="search"
+                        android:iconifiedByDefault="false"
+                        app:layout_collapseMode="parallax" />
+                <com.google.android.material.search.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:hint="search"
+                    app:layout_anchor="@id/searchbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </com.google.android.material.search.SearchView>
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="53dp"
+                        android:layout_height="40dp"
+                        android:layout_alignEnd="@+id/searchbar"
+                        android:layout_alignBottom="@+id/searchbar"
+                        android:layout_marginEnd="-75dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/ic_camera" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="For You"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/my_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="138dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:listitem="@layout/item_continue">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continue"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="More"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/continue_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:scrollbars="horizontal"
+
+            tools:listitem="@layout/item_post"/>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

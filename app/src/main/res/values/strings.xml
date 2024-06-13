@@ -13,16 +13,21 @@
     <string name="back">back</string>
     <string name="text_email">Email</string>
     <string name="text_password">password</string>
-    <string name="no_account">don\'t have account?</string>
-    <string name="text_username">username</string>
-    <string name="not_an_email">Your email is invalid</string>
-    <string name="not_a_password">Your password should be longer</string>
-    <string name="fill_all_fields">Failed to login, please fill all required field</string>
-    <string name="have_account">have account?</string>
-    <string name="register_success">Yay!! let\'s make some handcraft</string>
-    <string name="register_failed">Register Failed</string>
-    <string name="err_email_already_registered">Email already registered</string>
-    <string name="not_empty">Please fill this</string>
-    <string name="error_password_empty">Password must not be empty</string>
-    <string name="error_email_empty">Email must not be empty</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="text_username">Username</string>
+    <string name="not_an_email">The email address you entered is invalid.</string>
+    <string name="not_a_password">Your password should be longer for better security.</string>
+    <string name="fill_all_fields">Failed to login. Please fill in all required fields.</string>
+    <string name="have_account">Already have an account? Log in here.</string>
+    <string name="register_success">Yay!! Let\'s create some handcrafts together!</string>
+    <string name="register_failed">Registration failed. Please try again.</string>
+    <string name="err_email_already_registered">This email is already registered. Please use another email or log in.</string>
+    <string name="not_empty">This field cannot be empty. Please fill it in.</string>
+    <string name="error_password_empty">Password cannot be empty. Please enter your password.</string>
+    <string name="error_email_empty">Email cannot be empty. Please enter your email address.</string>
+    <string name="please_wait">Please wait while we process your request…</string>
+    <string name="invalid_password">Invalid password. Please check and try again.</string>
+    <string name="email_not_registered">Email not found. Please check your email or register a new account.</string>
+    <string name="timeout_error">Request timed out. Please check your internet connection and try again.</string>
+
 </resources>

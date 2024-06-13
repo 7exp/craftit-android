@@ -26,6 +26,7 @@ class LoginUseCase(
                             token = res.token
                         )
                     )
+                    emit(ResultState.Success("Success"))
                 }
             } else {
                 emit(ResultState.Error(res.message.toString()))

@@ -2,6 +2,9 @@ package com.sevenexp.craftit.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +13,7 @@ import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityLoginBinding
 import com.sevenexp.craftit.ui.MainActivity
+import com.sevenexp.craftit.ui.auth.register.RegisterActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.ValidationTextWatcher
@@ -34,47 +38,58 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupButton() {
         with(binding) {
-            btnLogin.setOnClickListener {
-                if (btnLogin.isEnabled.not()) return@setOnClickListener
+            btnLogin.setOnClickListener { checkLogin() }
+            btnRegister.setOnClickListener { toRegister() }
+            btnBack.setOnClickListener { finish() }
+            edEmail.addTextChangedListener(
+                ValidationTextWatcher(
+                    FIELDTYPE.EMAIL,
+                    getString(R.string.not_an_email),
+                    edEmail
+                )
+            )
+            edPassword.addTextChangedListener(
+                ValidationTextWatcher(
+                    FIELDTYPE.PASSWORD,
+                    getString(R.string.not_a_password),
+                    edPassword
+                )
+            )
+        }
+    }
 
-                if (!isValidInput()) return@setOnClickListener
+    private fun checkLogin() {
+        with(binding) {
+            val email = edEmail.text.toString()
+            val password = edPassword.text.toString()
 
-                doLogin()
+            if (isValidInput()) {
+                viewModel.login(email, password)
             }
-            edEmail.addTextChangedListener(ValidationTextWatcher(FIELDTYPE.EMAIL, getString(R.string.not_an_email), edEmail))
-            edPassword.addTextChangedListener(ValidationTextWatcher(FIELDTYPE.PASSWORD, getString(R.string.not_a_password), edPassword))
         }
     }
 
     private fun isValidInput(): Boolean {
-        if (!isValidEmail() || !isValidPassword()) {
-            snackbar.error(getString(R.string.fill_all_fields))
-            return false
+        val errorMessage = getString(R.string.fill_all_fields)
+
+        return with(binding) {
+            validateField(edEmail, errorMessage) &&
+                    validateField(edPassword, errorMessage) &&
+                    edEmail.error.isNullOrEmpty() &&
+                    edPassword.error.isNullOrEmpty()
         }
-        return true
     }
 
-    private fun isValidEmail(): Boolean {
-        return if (binding.edEmail.text.isNullOrEmpty()) {
-            binding.edEmail.error = getString(R.string.error_email_empty)
-            binding.edEmail.requestFocus()
+    private fun validateField(field: EditText, errorString: String): Boolean {
+        return if (field.text.toString().isEmpty()) {
+            field.error = errorString
+            field.requestFocus()
             false
-        } else true
+        } else {
+            true
+        }
     }
 
-    private fun isValidPassword(): Boolean {
-        return if (binding.edPassword.text.isNullOrEmpty()) {
-            binding.edPassword.error = getString(R.string.error_password_empty)
-            binding.edPassword.requestFocus()
-            false
-        } else true
-    }
-
-    private fun doLogin() {
-        val email = binding.edEmail.text.toString()
-        val password = binding.edPassword.text.toString()
-        viewModel.login(email, password)
-    }
 
     private fun setupListener() {
         lifecycleScope.launch {
@@ -85,27 +100,49 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleLoginState(result: ResultState<String>) {
-        setLoginButtonEnabled(false)
         when (result) {
-            is ResultState.Loading -> setLoginButtonEnabled(false)
+            is ResultState.Loading -> setLoading(true)
             is ResultState.Success -> {
+                setLoading(false)
                 toMain()
-                setLoginButtonEnabled(true)
             }
+
             is ResultState.Error -> {
-                snackbar.error(result.message)
-                setLoginButtonEnabled(true)
+                setLoading(false)
+                showError(result.message)
             }
-            else -> setLoginButtonEnabled(true)
+
+            else -> Unit
         }
     }
 
-    private fun setLoginButtonEnabled(isEnabled: Boolean) {
-        binding.btnLogin.isEnabled = isEnabled
+    private fun showError(message: String) {
+        if (message.trim().lowercase() == "http 403") {
+            snackbar.error(getString(R.string.invalid_password))
+            binding.edPassword.requestFocus()
+        } else if (message.trim().lowercase() == "http 404") {
+            snackbar.error(getString(R.string.email_not_registered))
+            binding.edEmail.requestFocus()
+        } else if (message.trim().lowercase() == "timeout") {
+            snackbar.error(getString(R.string.timeout_error))
+        } else {
+            snackbar.error(message)
+        }
+    }
+
+    private fun setLoading(isEnabled: Boolean) {
+        val visibility = if (isEnabled) View.VISIBLE else View.GONE
+        binding.loading.loadingComponents.visibility = visibility
     }
 
     private fun toMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun toRegister(){
+        startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
 

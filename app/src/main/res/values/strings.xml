@@ -29,7 +29,7 @@
     <string name="invalid_password">Invalid password. Please check and try again.</string>
     <string name="email_not_registered">Email not found. Please check your email or register a new account.</string>
     <string name="timeout_error">Request timed out. Please check your internet connection and try again.</string>
-    <string name="text_welcome">Hi, $1</string>
+    <string name="text_welcome">Hi, %s</string>
     <string name="help_user_photo">user photo</string>
     <string name="text_home_subgreeting">Let’s recycle for good of nature</string>
     <string name="hint_search">search</string>

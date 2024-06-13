@@ -41,11 +41,11 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
                         android:maxLines="1"
                         android:text="@string/text_welcome"
                         android:textColor="@color/primary"
                         android:textSize="20sp"
+                        android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/profile_image"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +54,7 @@
                         android:id="@+id/subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
+
                         android:text="@string/text_home_subgreeting"
                         android:textColor="@color/onBase400"
                         android:textSize="12sp"
@@ -132,25 +132,26 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
                         android:text="@string/text_lets_continue"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                    <TextView
+                    <Button
+                        style="@style/Theme.CraftIt.Button.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:fontFamily="sans-serif"
                         android:text="@string/text_more"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/my_recycler_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="138dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -167,19 +168,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
                         android:text="@string/text_for_you"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                    <TextView
+                    <Button
+                        style="@style/Theme.CraftIt.Button.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:fontFamily="sans-serif"
                         android:text="@string/text_more"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>

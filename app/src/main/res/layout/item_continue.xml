@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="10dp">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/story"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardviewImageView"
+        <ImageView
+            android:id="@+id/iv_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:cardCornerRadius="20dp"
+            android:layout_height="78dp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:transitionName="profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/previewImageView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="8dp"
-                android:transitionName="profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:importantForAccessibility="no" />
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="16dp"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/usernameTextView"
+            android:id="@+id/post_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:paddingBottom="8dp"
-            android:text="like"
-            android:transitionName="name"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardviewImageView"/>
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:paddingVertical="4dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintLeft_toLeftOf="@id/iv_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
+            tools:text="DIY How to Make Fabric Candy Decorations - Fake Wrapped Sw...." />
+
+        <ImageButton
+            android:id="@+id/btn_step"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/step"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_sledgehammer"
+            app:layout_constraintLeft_toLeftOf="@id/post_title"
+            app:layout_constraintTop_toBottomOf="@id/post_title"
+            app:tint="@color/onBase400" />
 
         <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:id="@+id/step_count"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:paddingBottom="10dp"
-            android:text="thumb"
-            android:transitionName="description"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameTextView"/>
+            android:layout_marginStart="8dp"
+            android:textColor="@color/onBase400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_step"
+            app:layout_constraintLeft_toRightOf="@id/btn_step"
+            app:layout_constraintTop_toTopOf="@id/btn_step"
+            tools:text="100/100" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

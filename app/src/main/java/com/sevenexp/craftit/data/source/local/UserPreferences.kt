@@ -11,16 +11,14 @@ import kotlinx.coroutines.flow.map
 
 class UserPreferences(private val datastore: DataStore<Preferences>) :
     UserPreferencesRepositoryInterface {
-    private object Keys {
+    object Keys {
         val ID = stringPreferencesKey("id")
         val NAME = stringPreferencesKey("name")
-        val EMAIL = stringPreferencesKey("email")
         val TOKEN = stringPreferencesKey("token")
     }
 
     private inline val Preferences.id get() = this[Keys.ID] ?: ""
     private inline val Preferences.name get() = this[Keys.NAME] ?: ""
-    private inline val Preferences.email get() = this[Keys.EMAIL] ?: ""
     private inline val Preferences.token get() = this[Keys.TOKEN] ?: ""
 
     override val getUserData: Flow<UserEntity> = datastore.data.map { preferences ->

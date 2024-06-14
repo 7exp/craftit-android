@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -76,13 +77,10 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.viewpager2)
     implementation(libs.converter.gson)
-    implementation(libs.design)
     implementation(libs.glide)
     implementation(libs.imageslideshow)
     implementation(libs.logging.interceptor)
     implementation(libs.material)
-    implementation(libs.play.services.location)
-    implementation(libs.play.services.maps)
     implementation(libs.retrofit)
     implementation(libs.roundedimageview)
     implementation(libs.shimmer)
@@ -91,4 +89,5 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
+    kapt(libs.androidx.room.compiler)
 }

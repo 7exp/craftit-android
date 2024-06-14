@@ -23,7 +23,7 @@ class DiscoveryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(DiscoveryViewModel::class.java)
+            ViewModelProvider(this)[DiscoveryViewModel::class.java]
 
         _binding = FragmentDiscoveryBinding.inflate(inflater, container, false)
         val root: View = binding.root

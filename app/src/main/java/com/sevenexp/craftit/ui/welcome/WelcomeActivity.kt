@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.animation.AnticipateInterpolator
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -112,7 +113,7 @@ class WelcomeActivity : AppCompatActivity() {
             )
             val alpha = ObjectAnimator.ofFloat(splashScreenView, View.ALPHA, 1f, 0f)
 
-            slideUp.interpolator = AnticipateOvershootInterpolator()
+            slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = ANIMATION_DURATION
             alpha.duration = ANIMATION_DURATION
 

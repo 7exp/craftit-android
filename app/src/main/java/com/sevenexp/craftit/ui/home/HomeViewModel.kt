@@ -30,7 +30,7 @@ class HomeViewModel(
         getUsername()
     }
 
-    private fun getHandicrafts() {
+    fun getHandicrafts() {
         viewModelScope.launch {
             handicraftUseCase().collect { result ->
                 _getHandicraftsState.update { it.copy(resultGetHandicrafts = result) }

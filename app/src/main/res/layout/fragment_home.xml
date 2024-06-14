@@ -188,14 +188,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.sevenexp.craftit.widget.CustomRecyclerView
             android:id="@+id/rv_for_you"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:paddingBottom="16dp"

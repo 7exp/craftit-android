@@ -123,6 +123,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -148,7 +149,7 @@
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/my_recycler_view"
+                    android:id="@+id/rv_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

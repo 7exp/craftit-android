@@ -1,5 +1,7 @@
 package com.sevenexp.craftit.ui.adapter
 
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +13,23 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.sevenexp.craftit.data.response.items.HandicraftItems
-import com.sevenexp.craftit.databinding.ItemPostBinding
-import com.sevenexp.craftit.widget.Helper
+import com.sevenexp.craftit.R
+import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
+import com.sevenexp.craftit.databinding.ItemContinueBinding
 
-class CraftItemAdapter : RecyclerView.Adapter<CraftItemAdapter.CraftItemViewHolder>() {
-    private val listPost = ArrayList<HandicraftItems>()
+class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HistoryViewHolder>() {
+    private val listPost = ArrayList<HistoryEntity>()
 
     override fun getItemCount(): Int = listPost.size
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CraftItemViewHolder {
-        val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CraftItemViewHolder(binding.root)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+        val binding =
+            ItemContinueBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HistoryViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: CraftItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.bind(listPost[position])
         holder.itemView.setOnClickListener {
 //            TODO: Implement intent to detail activity
@@ -34,7 +37,7 @@ class CraftItemAdapter : RecyclerView.Adapter<CraftItemAdapter.CraftItemViewHold
     }
 
 
-    fun setData(newItems: List<HandicraftItems>) {
+    fun setData(newItems: List<HistoryEntity>) {
         val oldList = ArrayList(listPost)
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(oldList, newItems))
         listPost.clear()
@@ -42,20 +45,22 @@ class CraftItemAdapter : RecyclerView.Adapter<CraftItemAdapter.CraftItemViewHold
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class CraftItemViewHolder(itemView: View) : ViewHolder(itemView) {
-        private val binding = ItemPostBinding.bind(itemView)
+    inner class HistoryViewHolder(itemView: View) : ViewHolder(itemView) {
+        private val binding = ItemContinueBinding.bind(itemView)
 
-        fun bind(post: HandicraftItems) {
+        fun bind(post: HistoryEntity) {
             binding.apply {
-                likeCount.text = post.likes.toString()
-                imageCount.text = post.totalImages.toString()
-                stepCount.text = post.totalStep.toString()
+                val spannable = SpannableString("${post.currentStep}/${post.totalStep}")
+                spannable.setSpan(
+                    ForegroundColorSpan(binding.root.context.getColor(R.color.primary)),
+                    0,
+                    spannable.indexOf("/"),
+                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                setImage(post.image ?: "", ivThumbnail)
                 postTitle.text = post.name
-                userLabel.text = post.tags?.take(2)?.joinToString(separator = ", ")
-                userTime.text = Helper.getTimelineUpload(binding.root.context, post.updatedAt ?: post.createdAt ?: "1970-01-01T00:00:00.000Z")
-                userName.text = post.createdBy
-                setImage(post.image ?: "", postImage)
-                setImage(post.userPhoto ?: "", profileImage, 50)
+                stepCount.text = spannable
             }
         }
 
@@ -86,8 +91,8 @@ class CraftItemAdapter : RecyclerView.Adapter<CraftItemAdapter.CraftItemViewHold
     }
 
     class DiffUtilCallback(
-        private val oldList: List<HandicraftItems>,
-        private val newList: List<HandicraftItems>
+        private val oldList: List<HistoryEntity>,
+        private val newList: List<HistoryEntity>
     ) :
         DiffUtil.Callback() {
 

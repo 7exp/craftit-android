@@ -2,7 +2,7 @@ package com.sevenexp.craftit.data.response.items
 
 import com.google.gson.annotations.SerializedName
 
-data class HandicraftItem(
+data class HandicraftItems(
 
     @field:SerializedName("waste")
     val waste: List<String?>? = null,

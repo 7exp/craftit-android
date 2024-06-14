@@ -18,10 +18,10 @@ interface HistoryDao {
     suspend fun updateStep(history: HistoryEntity)
 
     @Delete
-    suspend fun deleteHistory(history: HistoryEntity)
+    fun deleteHistory(history: HistoryEntity)
 
     @Query("DELETE FROM history")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Query("SELECT * FROM history")
     suspend fun getAllHistory(): List<HistoryEntity>

@@ -11,9 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
-import com.sevenexp.craftit.data.response.items.HandicraftItem
+import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.databinding.FragmentHomeBinding
 import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
+import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.widget.CustomRecyclerView.ViewStatus
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel>(factoryProducer = { Locator.homeViewModelFactory })
     private val craftItemAdapter by lazy { CraftItemAdapter() }
+    private val historyItemAdapter by lazy { HistoryItemAdapter() }
     private lateinit var binding: FragmentHomeBinding
 
     companion object {
@@ -43,11 +45,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        with(binding.rvForYou) {
-            recyclerView.adapter = craftItemAdapter
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            setOnRetryClickListener {
-                viewModel.getHandicrafts()
+        with(binding) {
+            with(rvForYou) {
+                recyclerView.adapter = craftItemAdapter
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                setOnRetryClickListener {
+                    viewModel.getHandicrafts()
+                }
+            }
+            with(rvHistory) {
+                adapter = historyItemAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
         }
     }
@@ -57,23 +65,49 @@ class HomeFragment : Fragment() {
             viewModel.getHandicraftsState.collect { state ->
                 binding.greeting.text = getString(R.string.text_welcome, state.username)
                 when (val result = state.resultGetHandicrafts) {
-                    is ResultState.Success -> handleSuccess(result)
-                    is ResultState.Error -> handleError(result)
+                    is ResultState.Success -> handleHandicraftSuccess(result)
+                    is ResultState.Error -> handleHandicraftError(result)
                     is ResultState.Loading -> binding.rvForYou.showView(ViewStatus.LOADING)
+                    is ResultState.Idle -> Unit
+                }
+                when (val result = state.resultGetHistory) {
+                    is ResultState.Success -> handleHistorySuccess(result)
+                    is ResultState.Error -> Unit
+                    is ResultState.Loading -> Unit
                     is ResultState.Idle -> Unit
                 }
             }
         }
     }
 
-    private fun handleSuccess(result: ResultState.Success<List<HandicraftItem>>) {
+    private fun handleHistorySuccess(result: ResultState.Success<List<HistoryEntity>>) {
+        val visible = View.VISIBLE
+        result.data?.let { histories ->
+            if (histories.isEmpty()) {
+                hideHistory()
+            } else {
+                binding.rvHistory.visibility = visible
+                binding.rlHistory.visibility = visible
+                historyItemAdapter.setData(histories)
+            }
+        } ?: {
+            hideHistory()
+        }
+    }
+
+    private fun hideHistory() {
+        binding.rvHistory.visibility = View.GONE
+        binding.rlHistory.visibility = View.GONE
+    }
+
+    private fun handleHandicraftSuccess(result: ResultState.Success<List<com.sevenexp.craftit.data.response.items.HandicraftItems>>) {
         result.data?.let { handicrafts ->
             craftItemAdapter.setData(handicrafts)
             binding.rvForYou.showView(ViewStatus.ON_DATA)
         } ?: binding.rvForYou.showView(ViewStatus.EMPTY)
     }
 
-    private fun handleError(result: ResultState.Error<*>) {
+    private fun handleHandicraftError(result: ResultState.Error<*>) {
         if (result.message.isNotEmpty() && result.message.lowercase()
                 .trim() == UNAUTHORIZED_HTTP_RESPONSE
         ) {

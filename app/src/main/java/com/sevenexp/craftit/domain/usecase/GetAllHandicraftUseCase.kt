@@ -1,14 +1,14 @@
 package com.sevenexp.craftit.domain.usecase
 
 import com.sevenexp.craftit.data.repository.HandicraftRepository
-import com.sevenexp.craftit.data.response.HandicraftItemResponse
+import com.sevenexp.craftit.data.response.items.HandicraftItem
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 class GetAllHandicraftUseCase(private val handicraftRepository: HandicraftRepository) {
-    operator fun invoke(): Flow<ResultState<List<HandicraftItemResponse>>> = flow {
+    operator fun invoke(): Flow<ResultState<List<HandicraftItem>>> = flow {
         emit(ResultState.Loading())
         handicraftRepository.getHandicrafts()
             .catch {
@@ -19,7 +19,7 @@ class GetAllHandicraftUseCase(private val handicraftRepository: HandicraftReposi
                     emit(ResultState.Success(emptyList()))
                 } else {
                     val handicraftItems = it.data.map { item ->
-                        HandicraftItemResponse(
+                        HandicraftItem(
                             image = item.image,
                             createdAt = item.createdAt,
                             images = item.images,

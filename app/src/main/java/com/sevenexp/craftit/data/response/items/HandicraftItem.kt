@@ -1,8 +1,8 @@
-package com.sevenexp.craftit.data.response
+package com.sevenexp.craftit.data.response.items
 
 import com.google.gson.annotations.SerializedName
 
-data class HandicraftItemResponse(
+data class HandicraftItem(
 
 	@field:SerializedName("image")
 	val image: String? = null,

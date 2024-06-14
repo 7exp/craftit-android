@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/empty_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/error"
+        app:riv_corner_radius="24dp" />
+
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:text="@string/something_went_wrong"
+        android:textColor="@color/onBase" />
+
+    <Button
+        android:id="@+id/rv_btn_reload"
+        style="@style/Theme.CraftIt.Button.Primary"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="@string/reload" />
+</LinearLayout>

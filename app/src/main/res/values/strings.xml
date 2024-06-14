@@ -42,5 +42,8 @@
     <string name="step">step</string>
     <string name="gallery">gallery</string>
     <string name="like">like</string>
+    <string name="nothing_here">Ups, nothing here</string>
+    <string name="reload">Reload</string>
+    <string name="something_went_wrong">Ups!, look like something bad happened</string>
 
 </resources>

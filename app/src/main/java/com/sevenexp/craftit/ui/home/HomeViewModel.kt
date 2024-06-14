@@ -3,7 +3,7 @@ package com.sevenexp.craftit.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.sevenexp.craftit.data.response.HandicraftItemResponse
+import com.sevenexp.craftit.data.response.items.HandicraftItem
 import com.sevenexp.craftit.domain.usecase.GetAllHandicraftUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserUseCase
 import com.sevenexp.craftit.utils.ResultState
@@ -17,7 +17,7 @@ class HomeViewModel(
 ) : ViewModel() {
 
     data class HomeViewState(
-        val resultGetHandicrafts: ResultState<List<HandicraftItemResponse>> = ResultState.Idle(),
+        val resultGetHandicrafts: ResultState<List<HandicraftItem>> = ResultState.Idle(),
         val username: String = ""
     )
 

@@ -85,8 +85,7 @@
                     <com.google.android.material.search.SearchBar
                         android:id="@+id/searchbar"
                         android:layout_width="0dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="0dp"
+                        android:layout_height="42dp"
                         android:background="@drawable/small_button_background"
                         android:backgroundTint="#efefef"
                         android:hint="@string/hint_search"
@@ -109,8 +108,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_image_search"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/small_button_background"
                         android:backgroundTint="#EFEFEF"
@@ -193,8 +192,8 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/continue_recycler_view"
+        <com.sevenexp.craftit.widget.CustomRecyclerView
+            android:id="@+id/rv_for_you"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"

@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
@@ -16,6 +18,7 @@ import com.sevenexp.craftit.databinding.FragmentHomeBinding
 import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
+import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.widget.CustomRecyclerView.ViewStatus
 import kotlinx.coroutines.launch
@@ -42,6 +45,15 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupListener()
+        setupButtons()
+    }
+
+    private fun setupButtons() {
+        with(binding) {
+            btnImageSearch.setOnClickListener {
+                startActivity(Intent(requireContext(), ImageSearchActivity::class.java))
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -111,9 +123,10 @@ class HomeFragment : Fragment() {
         if (result.message.isNotEmpty() && result.message.lowercase()
                 .trim() == UNAUTHORIZED_HTTP_RESPONSE
         ) {
-            doReLogin()
+//            doReLogin()
+        } else {
+            binding.rvForYou.showView(ViewStatus.ERROR)
         }
-        binding.rvForYou.showView(ViewStatus.ERROR)
     }
 
     private fun doReLogin() {
@@ -123,4 +136,6 @@ class HomeFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
+
+
 }

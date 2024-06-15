@@ -51,4 +51,8 @@
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
     <string name="someone_else_login">Look like someone is login to your account, try login again.</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="ok">ok</string>
+    <string name="permission_denied_message">You need to allow the permission to access the camera, please try again.</string>
+    <string name="grant_permission">Grant Permission</string>
 </resources>

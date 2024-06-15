@@ -17,4 +17,12 @@
     <color name="info">#4a90e2</color>
     <color name="overlay">#40000000</color>
     <color name="onBase400">#949494</color>
+
+    <!--  PIX  -->
+    <color name="video_counter_color_pix">#E53935</color>
+    <color name="primary_color_pix">@color/primary</color>
+    <color name="primary_light_color_pix">@color/primary100</color>
+    <color name="surface_color_pix">@color/base</color>
+    <color name="text_color_pix">@color/onBase</color>
+
 </resources>

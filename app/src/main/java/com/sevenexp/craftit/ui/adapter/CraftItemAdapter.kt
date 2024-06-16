@@ -1,6 +1,5 @@
 package com.sevenexp.craftit.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -31,6 +30,7 @@ class CraftItemAdapter :
                 userName.text = post.createdBy
                 likeCount.text = post.likes.toString()
                 stepCount.text = post.totalStep.toString()
+//                userTime.text = Helper.getTimelineUpload()
 
                 root.setOnClickListener {
 //                    val intent = Intent(root.context, DetailActivity::class.java)
@@ -45,8 +45,8 @@ class CraftItemAdapter :
 
         private fun setImage(url: String, target: ImageView) {
             val shimmer = Shimmer.AlphaHighlightBuilder()
-                .setBaseAlpha(1f)
-                .setHighlightAlpha(0.8f)
+                .setBaseAlpha(0.9f)
+                .setHighlightAlpha(1f)
                 .setAutoStart(true)
                 .setTilt(32f)
                 .build()
@@ -57,7 +57,7 @@ class CraftItemAdapter :
                     .load(url)
                     .placeholder(shimmerDrawable)
                     .error(ContextCompat.getDrawable(root.context, R.drawable.noimage))
-                    .into(postImage)
+                    .into(target)
             }
         }
     }
@@ -65,7 +65,6 @@ class CraftItemAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
-        Log.d("ADAPTER", data.toString())
         if (data != null) {
             holder.bind(data)
         }

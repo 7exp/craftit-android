@@ -9,6 +9,7 @@ import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetHandicraftByIdResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
+import com.sevenexp.craftit.data.source.local.UserPreferences
 import com.sevenexp.craftit.data.source.remote.ApiService
 import com.sevenexp.craftit.data.source.remote.paging.FypRemoteMediator
 import com.sevenexp.craftit.domain.interfaces.HandicraftRepositoryInterface
@@ -20,14 +21,18 @@ import kotlinx.coroutines.flow.flowOn
 @OptIn(ExperimentalPagingApi::class)
 class HandicraftRepository(
     private val apiService: ApiService,
-    private val database: HandicraftDatabase
+    private val database: HandicraftDatabase,
+    private val preferences: UserPreferences
 ) : HandicraftRepositoryInterface {
     override fun getFypStream(): Flow<PagingData<FypItems>> {
         val pagingSourceFactory = { database.fypDao().getFypItems() }
 
         return Pager(
-            config = PagingConfig(pageSize = 20, enablePlaceholders = false),
-            remoteMediator = FypRemoteMediator(apiService, database),
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+            ),
+            remoteMediator = FypRemoteMediator(apiService, database, preferences),
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }

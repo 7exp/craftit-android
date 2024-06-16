@@ -7,4 +7,5 @@ interface UserPreferencesRepositoryInterface {
     val getUserData: Flow<UserEntity>
     suspend fun saveUserData(userEntity: UserEntity)
     suspend fun clearUserData()
+    suspend fun getUserId(): String
 }

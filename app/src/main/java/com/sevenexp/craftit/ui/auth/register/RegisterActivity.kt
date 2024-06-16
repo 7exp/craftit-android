@@ -2,9 +2,6 @@ package com.sevenexp.craftit.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +13,7 @@ import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.ValidationTextWatcher
-import com.sevenexp.craftit.widget.TopSnackBar
+import com.sevenexp.craftit.utils.TopSnackBar
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {

@@ -2,7 +2,6 @@ package com.sevenexp.craftit.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +16,7 @@ import com.sevenexp.craftit.ui.auth.register.RegisterActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.ValidationTextWatcher
-import com.sevenexp.craftit.widget.TopSnackBar
+import com.sevenexp.craftit.utils.TopSnackBar
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {

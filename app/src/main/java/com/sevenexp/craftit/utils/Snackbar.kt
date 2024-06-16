@@ -1,4 +1,4 @@
-package com.sevenexp.craftit.widget
+package com.sevenexp.craftit.utils
 
 import android.content.Context
 import android.view.Gravity

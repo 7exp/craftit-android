@@ -4,14 +4,17 @@ import androidx.paging.PagingData
 import com.sevenexp.craftit.data.response.CreateLikeResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetHandicraftByIdResponse
+import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 
 interface HandicraftRepositoryInterface {
     fun getHandicrafts(): Flow<GetAllHandicraftResponse>
     fun getHandicraftById(id: Int): Flow<GetHandicraftByIdResponse>
     fun likeHandicraft(id: Int): Flow<CreateLikeResponse>
     fun getFypStream(): Flow<PagingData<FypItems>>
-
+    fun searchWithQuery(query: String): Flow<SearchResponse>
+    fun searchWithImage(image: File): Flow<SearchResponse>
 
 }

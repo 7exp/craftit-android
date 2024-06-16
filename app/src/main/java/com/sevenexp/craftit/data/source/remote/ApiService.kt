@@ -4,11 +4,17 @@ import com.sevenexp.craftit.data.response.CreateUserResponse
 import com.sevenexp.craftit.data.response.FypResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.LoginResponse
+import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.source.remote.request.LoginRequest
 import com.sevenexp.craftit.data.source.remote.request.RegisterRequest
+import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,6 +33,17 @@ interface ApiService {
         @Path("userid") userId: String,
         @Query("page") page: Int
     ): FypResponse
+
+    @GET("/handicrafts/search")
+    suspend fun search(
+        @Query("query") query: String
+    ): SearchResponse
+
+    @POST("/recognition")
+    @Multipart
+    suspend fun search(
+        @Part image: MultipartBody.Part
+    ): SearchResponse
 }
 
 

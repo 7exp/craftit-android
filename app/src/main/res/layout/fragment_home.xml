@@ -185,7 +185,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.search.SearchView
+    <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

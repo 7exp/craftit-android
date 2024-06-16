@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.sevenexp.craftit.data.response.CreateLikeResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetHandicraftByIdResponse
+import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
 import com.sevenexp.craftit.data.source.local.UserPreferences
@@ -17,6 +18,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 @OptIn(ExperimentalPagingApi::class)
 class HandicraftRepository(
@@ -35,6 +40,20 @@ class HandicraftRepository(
             remoteMediator = FypRemoteMediator(apiService, database, preferences),
             pagingSourceFactory = pagingSourceFactory
         ).flow
+    }
+
+    override fun searchWithQuery(query: String): Flow<SearchResponse> = flow {
+        emit(apiService.search(query = query))
+    }.flowOn(Dispatchers.IO)
+
+
+    override fun searchWithImage(image: File): Flow<SearchResponse> = flow {
+        val body = MultipartBody.Part.createFormData(
+            "image",
+            image.name,
+            image.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        )
+        emit(apiService.search(image = body))
     }
 
     override fun getHandicrafts(): Flow<GetAllHandicraftResponse> = flow {

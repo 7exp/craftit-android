@@ -1,7 +1,14 @@
-package com.sevenexp.craftit.widget
+package com.sevenexp.craftit.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import com.sevenexp.craftit.R
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,4 +47,28 @@ object Helper {
         }
         return label
     }
+
+}
+
+fun Uri.toFile(context: Context): File {
+    val inputStream = context.contentResolver.openInputStream(this) as InputStream
+    val file = File(context.cacheDir, "tempFile")
+    val outputStream = FileOutputStream(file)
+    inputStream.copyTo(outputStream)
+    return file
+}
+
+fun File.compressImage(): File {
+    val bitmap = BitmapFactory.decodeFile(path)
+    var compressQuality = 100
+    var streamLength: Int
+    do {
+        val bmpStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+        val bmpPicByteArray = bmpStream.toByteArray()
+        streamLength = bmpPicByteArray.size
+        compressQuality -= 5
+    } while (streamLength > 1000000)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(this))
+    return this
 }

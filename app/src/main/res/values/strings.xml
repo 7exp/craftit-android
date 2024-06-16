@@ -55,4 +55,5 @@
     <string name="ok">ok</string>
     <string name="permission_denied_message">You need to allow the permission to access the camera, please try again.</string>
     <string name="grant_permission">Grant Permission</string>
+    <string name="retry">retry</string>
 </resources>

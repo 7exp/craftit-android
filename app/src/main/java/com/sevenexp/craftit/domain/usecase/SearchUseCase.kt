@@ -16,7 +16,6 @@ class SearchUseCase(private val handicraftRepository: HandicraftRepository) {
     operator fun invoke(
         query: String? = null, image: File? = null
     ): Flow<ResultState<List<FypItems>>> = flow<ResultState<List<FypItems>>> {
-
         if (query != null) {
             searchFunction = handicraftRepository.searchWithQuery(query)
         } else if (image != null) {
@@ -27,12 +26,6 @@ class SearchUseCase(private val handicraftRepository: HandicraftRepository) {
 
         searchFunction.catch {
             emit(ResultState.Error((it.localizedMessage ?: it.message).toString()))
-        }.collect { res ->
-            if (res.data.isEmpty()) {
-                emit(ResultState.Success(res.data))
-            } else {
-                emit(ResultState.Error("empty"))
-            }
-        }
+        }.collect { res -> emit(ResultState.Success(res.data)) }
     }.flowOn(Dispatchers.IO)
 }

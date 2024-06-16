@@ -1,6 +1,7 @@
 package com.sevenexp.craftit.ui.search_result
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,6 @@ import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sevenexp.craftit.Locator
-import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.databinding.ActivitySearchResultBinding
 import com.sevenexp.craftit.ui.adapter.SearchAdapter
 import com.sevenexp.craftit.utils.ResultState
@@ -55,6 +55,7 @@ class SearchResultActivity : AppCompatActivity() {
                 when (result.searchResult) {
                     is ResultState.Success -> {
                         val searchResult = result.searchResult.data
+                        Log.d("DATA", searchResult.toString())
                         if (!searchResult.isNullOrEmpty()) {
                             binding.rvSearchResult.showView(ViewStatus.ON_DATA)
                             adapter.setData(searchResult)

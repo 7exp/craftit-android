@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.adapter.LoadingAdapter
 import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
+import com.sevenexp.craftit.ui.search_result.SearchResultActivity
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.launch
 
@@ -42,22 +44,25 @@ class HomeFragment : Fragment() {
 
     private fun setupSearchView() {
         with(binding) {
-            searchbar.setOnClickListener {
-                searchView.visibility = View.VISIBLE
-                searchView.requestFocus()
+            searchView.setupWithSearchBar(searchbar)
+            searchView.editText.setOnEditorActionListener { textview, actionId, event ->
+                searchbar.setText(searchView.text)
+                searchView.hide()
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    moveToSearchResult(searchView.text.toString())
+                    true
+                } else {
+                    false
+                }
             }
-            searchView.setOnQueryTextListener{
 
-            }
-//            searchView..setOnEditorActionListener { textview, actionId, event ->
-//                searchbar.setText(searchView.text)
-//                val intent = Intent(requireContext(), SearchResultActivity::class.java)
-//                intent.putExtra(SearchResultActivity.EXTRA_QUERY, searchView.text.toString())
-//                startActivity(intent)
-//                searchView.hide()
-//                false
-//            }
         }
+    }
+
+    private fun moveToSearchResult(query: String) {
+        val intent = Intent(requireContext(), SearchResultActivity::class.java)
+        intent.putExtra(SearchResultActivity.EXTRA_QUERY, query)
+        startActivity(intent)
     }
 
     private fun setupButtons() {

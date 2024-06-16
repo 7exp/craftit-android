@@ -10,7 +10,6 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnticipateInterpolator
-import android.view.animation.AnticipateOvershootInterpolator
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -70,12 +69,14 @@ class WelcomeActivity : AppCompatActivity() {
 
         spannable.setSpan(
             ForegroundColorSpan(primaryColor),
-            lastTwoWord, spannable.length,
+            lastTwoWord,
+            spannable.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannable.setSpan(
             ForegroundColorSpan(primaryColor),
-            spaceBeforeDot, firstDot,
+            spaceBeforeDot,
+            firstDot,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 

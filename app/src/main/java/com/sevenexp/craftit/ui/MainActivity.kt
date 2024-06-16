@@ -1,6 +1,5 @@
 package com.sevenexp.craftit.ui
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +11,8 @@ import com.sevenexp.craftit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private var alreadySearch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             throw RuntimeException("Invalid NavHostFragment id")
         }
-
     }
 
-
+    fun checkSearchState(status: Boolean): Boolean {
+        return alreadySearch
+    }
 }

@@ -1,111 +1,89 @@
 package com.sevenexp.craftit.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.sevenexp.craftit.data.response.items.HandicraftItems
+import com.sevenexp.craftit.R
+import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.databinding.ItemPostBinding
-import com.sevenexp.craftit.widget.Helper
 
-class CraftItemAdapter : RecyclerView.Adapter<CraftItemAdapter.CraftItemViewHolder>() {
-    private val listPost = ArrayList<HandicraftItems>()
+class CraftItemAdapter :
+    PagingDataAdapter<FypItems, CraftItemAdapter.ViewHolder>(itemDiffCallback) {
+    class ViewHolder(private val binding: ItemPostBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val shimmerDrawable = ShimmerDrawable()
+        fun bind(post: FypItems) {
+            with(binding) {
 
-    override fun getItemCount(): Int = listPost.size
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CraftItemViewHolder {
-        val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CraftItemViewHolder(binding.root)
-    }
-
-    override fun onBindViewHolder(holder: CraftItemViewHolder, position: Int) {
-        holder.bind(listPost[position])
-        holder.itemView.setOnClickListener {
-//            TODO: Implement intent to detail activity
-        }
-    }
-
-
-    fun setData(newItems: List<HandicraftItems>) {
-        val oldList = ArrayList(listPost)
-        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(oldList, newItems))
-        listPost.clear()
-        listPost.addAll(newItems)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    inner class CraftItemViewHolder(itemView: View) : ViewHolder(itemView) {
-        private val binding = ItemPostBinding.bind(itemView)
-
-        fun bind(post: HandicraftItems) {
-            binding.apply {
-                likeCount.text = post.likes.toString()
-                imageCount.text = post.totalImages.toString()
-                stepCount.text = post.totalStep.toString()
+                setImage(post.image, postImage)
+                setImage(post.imageUser, profileImage)
                 postTitle.text = post.name
-                userLabel.text = post.tags?.take(2)?.joinToString(separator = ", ")
-                userTime.text = Helper.getTimelineUpload(binding.root.context, post.updatedAt ?: post.createdAt ?: "1970-01-01T00:00:00.000Z")
+                userLabel.text = post.tagsItems.joinToString(", ")
                 userName.text = post.createdBy
-                setImage(post.image ?: "", postImage)
-                setImage(post.userPhoto ?: "", profileImage, 50)
+                likeCount.text = post.likes.toString()
+                stepCount.text = post.totalStep.toString()
+//                userTime.text = Helper.getTimelineUpload()
+
+                root.setOnClickListener {
+//                    val intent = Intent(root.context, DetailActivity::class.java)
+//                    intent.putExtra(DetailActivity.EXTRA_STORY_ID, story.id)
+//                    intent.putExtra(DetailActivity.EXTRA_TITLE, story.name)
+//                    intent.putExtra(DetailActivity.EXTRA_IMAGE, story.photoUrl)
+//
+//                    it.context.startActivity(intent)
+                }
             }
         }
 
-        private fun setImage(imageUrl: String, imageView: ImageView, roundness: Int = 16) {
-            val shimmerDrawable = ShimmerDrawable()
+        private fun setImage(url: String, target: ImageView) {
             val shimmer = Shimmer.AlphaHighlightBuilder()
-                .setBaseAlpha(0.8f)
-                .setHighlightAlpha(0.9f)
+                .setBaseAlpha(0.9f)
+                .setHighlightAlpha(1f)
                 .setAutoStart(true)
                 .setTilt(32f)
                 .build()
-
             shimmerDrawable.setShimmer(shimmer)
-            if (imageUrl.isNotEmpty()) {
-                try {
-                    Glide.with(binding.root)
-                        .load(imageUrl)
-                        .placeholder(shimmerDrawable)
-                        .error(shimmerDrawable)
-                        .into(imageView)
-                } catch (e: Exception) {
-                    Log.d("Craftit item adapter", "Failed set image for $imageUrl")
-                }
-            } else {
-                imageView.setImageDrawable(shimmerDrawable)
+
+            with(binding) {
+                Glide.with(binding.root)
+                    .load(url)
+                    .placeholder(shimmerDrawable)
+                    .error(ContextCompat.getDrawable(root.context, R.drawable.noimage))
+                    .into(target)
             }
         }
     }
 
-    class DiffUtilCallback(
-        private val oldList: List<HandicraftItems>,
-        private val newList: List<HandicraftItems>
-    ) :
-        DiffUtil.Callback() {
 
-        override fun getOldListSize(): Int = oldList.size
-        override fun getNewListSize(): Int = newList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val oldItem = oldList[oldItemPosition]
-            val newItem = newList[newItemPosition]
-
-            return oldItem.javaClass == newItem.javaClass
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
         }
+    }
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val oldItem = oldList[oldItemPosition]
-            val newItem = newList[newItemPosition]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
-            return oldItem == newItem
+    companion object {
+        val itemDiffCallback = object : DiffUtil.ItemCallback<FypItems>() {
+            override fun areItemsTheSame(oldItem: FypItems, newItem: FypItems): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: FypItems, newItem: FypItems): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }

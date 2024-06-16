@@ -1,4 +1,5 @@
 package com.sevenexp.craftit.widget
 
-class Dialog {
+class Dialog() {
+
 }

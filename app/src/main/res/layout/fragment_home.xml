@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:backgroundTint="@color/base"
     tools:context=".ui.home.HomeFragment">
 
@@ -95,17 +96,6 @@
                         app:layout_constraintRight_toLeftOf="@+id/btn_image_search"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.search.SearchView
-                        android:id="@+id/searchView"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:hint="@string/hint_search"
-                        app:layout_anchor="@id/searchbar"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <ImageButton
                         android:id="@+id/btn_image_search"
                         android:layout_width="42dp"
@@ -172,16 +162,6 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
-                    <Button
-                        style="@style/Theme.CraftIt.Button.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="@string/text_more"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp"
-                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -193,7 +173,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.sevenexp.craftit.widget.CustomRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_for_you"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -204,4 +184,20 @@
             tools:listitem="@layout/item_post" />
 
     </LinearLayout>
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/hint_search"
+        android:searchIcon="@drawable/ic_magnifier"
+        app:backgroundTint="@color/base"
+        app:layout_anchor="@id/searchbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@color/base"
+        app:searchHintIcon="@drawable/ic_magnifier"
+        app:searchIcon="@drawable/ic_magnifier" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

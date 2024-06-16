@@ -2,7 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:replace="android:maxSdkVersion" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <application
         android:name=".App"
@@ -16,6 +30,12 @@
         android:theme="@style/Theme.CraftIt"
         tools:targetApi="31">
         <activity
+            android:name=".ui.search_result.SearchResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.image_search.ImageSearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
@@ -28,8 +48,8 @@
             android:theme="@style/Theme.CraftIt.ActionBar" />
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:theme="@style/Theme.CraftIt.SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.CraftIt.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

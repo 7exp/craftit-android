@@ -92,6 +92,7 @@ class WelcomeActivity : AppCompatActivity() {
                     content.viewTreeObserver.removeOnPreDrawListener(this)
                     if (isLoggedIn.resultGetUser.data == true) {
                         startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+                        finish()
                     }
                     return true
                 } else {

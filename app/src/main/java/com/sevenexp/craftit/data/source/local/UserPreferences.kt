@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.sevenexp.craftit.domain.entity.UserEntity
 import com.sevenexp.craftit.domain.interfaces.UserPreferencesRepositoryInterface
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class UserPreferences(private val datastore: DataStore<Preferences>) :
@@ -40,4 +41,6 @@ class UserPreferences(private val datastore: DataStore<Preferences>) :
     override suspend fun clearUserData() {
         datastore.edit { it.clear() }
     }
+
+    override suspend fun getUserId(): String = datastore.data.first().id
 }

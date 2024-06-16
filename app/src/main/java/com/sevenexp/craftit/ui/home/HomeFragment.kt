@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
@@ -19,6 +18,7 @@ import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
+import com.sevenexp.craftit.ui.search_result.SearchResultActivity
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.widget.CustomRecyclerView.ViewStatus
 import kotlinx.coroutines.launch
@@ -46,6 +46,20 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupListener()
         setupButtons()
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                val intent = Intent(requireContext(), SearchResultActivity::class.java)
+                intent.putExtra("QUERY", query)
+                startActivity(intent)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean = false
+        })
     }
 
     private fun setupButtons() {
@@ -123,7 +137,7 @@ class HomeFragment : Fragment() {
         if (result.message.isNotEmpty() && result.message.lowercase()
                 .trim() == UNAUTHORIZED_HTTP_RESPONSE
         ) {
-//            doReLogin()
+            doReLogin()
         } else {
             binding.rvForYou.showView(ViewStatus.ERROR)
         }

@@ -95,11 +95,12 @@
                         app:layout_constraintRight_toLeftOf="@+id/btn_image_search"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.search.SearchView
+                    <SearchView
                         android:id="@+id/searchView"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:hint="@string/hint_search"
+                        android:searchIcon="@drawable/ic_magnifier"
                         app:layout_anchor="@id/searchbar"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.sevenexp.craftit.ui.image_search
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityImageSearchBinding
+import com.sevenexp.craftit.ui.search_result.SearchResultActivity
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Flash
@@ -82,11 +84,12 @@ class ImageSearchActivity : AppCompatActivity() {
 
     private fun setupPix() {
         addPixToActivity(R.id.main, pixOptions) {
-            when(it.status){
+            when (it.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     Log.d("ImageSearchActivity", "setupPix: ${it.data.toString()}")
                     toSearch(it.data)
                 }
+
                 PixEventCallback.Status.BACK_PRESSED -> {
                     finish()
                 }
@@ -107,7 +110,10 @@ class ImageSearchActivity : AppCompatActivity() {
     }
 
     private fun toSearch(data: List<Uri>) {
-        // TOOD: Add here
+        val intent = Intent(this, SearchResultActivity::class.java)
+        intent.putExtra(SearchResultActivity.EXTRA_IMAGE, data[0].toString())
+        startActivity(intent)
+        finish()
     }
 
 

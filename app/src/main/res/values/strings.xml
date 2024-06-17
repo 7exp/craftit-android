@@ -56,4 +56,9 @@
     <string name="permission_denied_message">You need to allow the permission to access the camera, please try again.</string>
     <string name="grant_permission">Grant Permission</string>
     <string name="retry">retry</string>
+    <string name="help_craftit_logo">Craftit logo</string>
+    <string name="update_profile_picture_header">Pick a profile picture</string>
+    <string name="update_profile_picture_subheader">Have favorite selfie?, upload it now.</string>
+    <string name="upload_image">upload_image</string>
+    <string name="skip_for_now">Skip for now</string>
 </resources>

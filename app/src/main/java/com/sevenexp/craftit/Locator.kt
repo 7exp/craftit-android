@@ -15,10 +15,12 @@ import com.sevenexp.craftit.domain.usecase.GetUserUseCase
 import com.sevenexp.craftit.domain.usecase.LoginUseCase
 import com.sevenexp.craftit.domain.usecase.RegisterUseCase
 import com.sevenexp.craftit.domain.usecase.SearchUseCase
+import com.sevenexp.craftit.domain.usecase.UpdatePictureUseCase
 import com.sevenexp.craftit.ui.auth.login.LoginViewModel
 import com.sevenexp.craftit.ui.auth.register.RegisterViewModel
 import com.sevenexp.craftit.ui.home.HomeViewModel
 import com.sevenexp.craftit.ui.search_result.SearchResultViewModel
+import com.sevenexp.craftit.ui.update_picture.UpdateProfilePictureViewModel
 import com.sevenexp.craftit.ui.welcome.WelcomeViewModel
 
 object Locator {
@@ -75,6 +77,11 @@ object Locator {
     val searchResulViewModelFactory by lazy {
         SearchResultViewModel.Factory(
             SearchUseCase(handicraftRepos)
+        )
+    }
+    val updateProfilePictureFactory by lazy {
+        UpdateProfilePictureViewModel.Factory(
+            UpdatePictureUseCase(authRepos)
         )
     }
 }

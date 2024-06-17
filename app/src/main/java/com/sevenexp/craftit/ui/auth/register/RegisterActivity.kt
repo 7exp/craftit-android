@@ -10,6 +10,7 @@ import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityRegisterBinding
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
+import com.sevenexp.craftit.ui.update_picture.UpdatePictureActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.ValidationTextWatcher
@@ -43,10 +44,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun handleRegisterState(result: ResultState<String>) {
         when (result) {
             is ResultState.Loading -> binding.btnRegister.isEnabled = false
-            is ResultState.Success -> {
-                toLogin(true)
-                binding.btnRegister.isEnabled = true
-            }
+            is ResultState.Success -> { toUpdateProfilePicture(); binding.btnRegister.isEnabled = true }
             is ResultState.Error -> {
                 snackbar.error(result.message)
                 binding.btnRegister.isEnabled = true
@@ -58,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupButton() {
         with(binding) {
             btnBack.setOnClickListener { finish() }
-            btnLogin.setOnClickListener { toLogin() }
+            btnLogin.setOnClickListener { toUpdateProfilePicture() }
             btnRegister.setOnClickListener {
                 if (btnRegister.isEnabled.not()) return@setOnClickListener
                 if (isInputValid()) {
@@ -68,11 +66,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun toLogin(isSuccess: Boolean = false){
-        val intent = Intent(this, LoginActivity::class.java)
-
-        if(isSuccess) intent.putExtra(LoginActivity.EXTRA_MESSAGE, getString(R.string.register_success))
-
+    private fun toUpdateProfilePicture(){
+        val intent = Intent(this, UpdatePictureActivity::class.java)
         startActivity(intent)
         finish()
     }

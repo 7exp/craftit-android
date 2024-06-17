@@ -11,7 +11,7 @@ import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.widget.Converter
 @Database(
     entities = [HistoryEntity::class, FypItems::class, RemoteKeys::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converter::class)

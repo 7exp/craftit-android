@@ -5,6 +5,7 @@ import com.sevenexp.craftit.data.response.FypResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.LoginResponse
 import com.sevenexp.craftit.data.response.SearchResponse
+import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
 import com.sevenexp.craftit.data.source.remote.request.LoginRequest
 import com.sevenexp.craftit.data.source.remote.request.RegisterRequest
 import okhttp3.MultipartBody
@@ -14,18 +15,25 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @POST("auth/register")
+    @POST("/auth/register")
     suspend fun register(@Body request: RegisterRequest): CreateUserResponse
 
-    @POST("auth/login")
+    @POST("/auth/login")
     suspend fun login(@Body request: LoginRequest): LoginResponse
 
-    @GET("handicrafts")
+    @PUT("/image/user/{UserId}")
+    suspend fun updateProfilePicture(
+        @Part image: MultipartBody.Part
+    ): UpdateProfilePictureResponse
+
+
+    @GET("/handicrafts")
     suspend fun getAllHandicraft(): GetAllHandicraftResponse
 
     @GET("/dashboard/fyp/{userid}")
@@ -44,6 +52,8 @@ interface ApiService {
     suspend fun search(
         @Part image: MultipartBody.Part
     ): SearchResponse
+
+
 }
 
 

@@ -58,6 +58,7 @@
             app:riv_corner_radius="1000dp" />
 
         <ImageButton
+            android:id="@+id/btn_select_image"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_margin="8dp"

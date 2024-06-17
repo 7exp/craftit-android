@@ -48,7 +48,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
                 stepCount.text = post.totalStep.toString()
                 postTitle.text = post.name
 
-                userLabel.text = post.tags.joinToString(separator = ", ")
+                userLabel.text = post.tagsItems.joinToString(separator = ", ")
                 userName.text = post.createdBy
                 userTime.text = Helper.getTimelineUpload(binding.root.context, post.createdAt)
                 setImage(post.image, postImage)

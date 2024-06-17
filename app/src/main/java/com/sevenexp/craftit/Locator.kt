@@ -59,7 +59,8 @@ object Locator {
     }
     val registerViewModelFactory by lazy {
         RegisterViewModel.Factory(
-            RegisterUseCase(requireApplication.baseContext, authRepos)
+            RegisterUseCase(requireApplication.baseContext, authRepos),
+            LoginUseCase(authRepos, userPrefRepos)
         )
     }
     val loginViewModelFactory by lazy {

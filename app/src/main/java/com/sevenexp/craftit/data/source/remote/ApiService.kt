@@ -10,8 +10,6 @@ import com.sevenexp.craftit.data.source.remote.request.LoginRequest
 import com.sevenexp.craftit.data.source.remote.request.RegisterRequest
 import okhttp3.MultipartBody
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -28,6 +26,7 @@ interface ApiService {
     suspend fun login(@Body request: LoginRequest): LoginResponse
 
     @PUT("/image/user/{UserId}")
+    @Multipart
     suspend fun updateProfilePicture(
         @Part image: MultipartBody.Part
     ): UpdateProfilePictureResponse

@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
     private fun setupSearchView() {
         with(binding) {
             searchView.setupWithSearchBar(searchbar)
-            searchView.editText.setOnEditorActionListener { textview, actionId, event ->
+            searchView.editText.setOnEditorActionListener { _, actionId, _ ->
                 searchbar.setText(searchView.text)
                 searchView.hide()
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {

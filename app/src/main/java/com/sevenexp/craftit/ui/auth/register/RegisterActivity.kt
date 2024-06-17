@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityRegisterBinding
+import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.ui.update_picture.UpdatePictureActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
@@ -21,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<RegisterViewModel> { Locator.registerViewModelFactory }
-    private val snackbar by lazy { TopSnackBar(binding.root, this) }
+    private val snackbar by lazy { TopSnackBar(binding.root) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,23 @@ class RegisterActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.registerState.collect { state ->
                 handleRegisterState(state.resultRegister)
+                handleLoginState(state.resultLogin)
             }
+        }
+    }
+
+    private fun handleLoginState(result: ResultState<String>) {
+        when (result) {
+            is ResultState.Success -> {
+                setLoading(false)
+                toUpdateProfilePicture()
+            }
+
+            is ResultState.Error -> {
+                toLogin()
+            }
+
+            else -> Unit
         }
     }
 
@@ -45,8 +62,7 @@ class RegisterActivity : AppCompatActivity() {
         when (result) {
             is ResultState.Loading -> setLoading(true)
             is ResultState.Success -> {
-                toUpdateProfilePicture()
-                setLoading(false)
+                doLogin()
             }
 
             is ResultState.Error -> {
@@ -56,6 +72,10 @@ class RegisterActivity : AppCompatActivity() {
 
             else -> setLoading(false)
         }
+    }
+
+    private fun doLogin() {
+        viewModel.login(binding.edEmail.text.toString(), binding.edPassword.text.toString())
     }
 
     private fun setLoading(isEnabled: Boolean) {
@@ -85,6 +105,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun toUpdateProfilePicture() {
         val intent = Intent(this, UpdatePictureActivity::class.java)
         startActivity(intent)
+        finish()
+    }
+
+    private fun toLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 

@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.data.repository
 
+import android.util.Log
 import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
 import com.sevenexp.craftit.data.source.remote.ApiService
 import com.sevenexp.craftit.data.source.remote.request.LoginRequest
@@ -25,12 +26,15 @@ class AuthRepository(private val apiService: ApiService) : AuthRepositoryInterfa
     }.flowOn(Dispatchers.IO)
 
     override fun updateProfilePicture(image: File): Flow<UpdateProfilePictureResponse> = flow {
-        val body = MultipartBody.Part.createFormData(
-            "image",
-            image.name,
-            image.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        )
-
-        emit(apiService.updateProfilePicture(image = body))
-    }.flowOn(Dispatchers.IO)
+        try {
+            val body = MultipartBody.Part.createFormData(
+                "image",
+                image.name,
+                image.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            )
+            emit(apiService.updateProfilePicture(body))
+        } catch (e: Exception) {
+            Log.e("FromRepo", "Error in upgrade profile picture", e)
+        }
+    }
 }

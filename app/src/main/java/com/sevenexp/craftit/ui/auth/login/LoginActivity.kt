@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<LoginViewModel> { Locator.loginViewModelFactory }
-    private val snackbar by lazy { TopSnackBar(binding.root, this) }
+    private val snackbar by lazy { TopSnackBar(binding.root) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

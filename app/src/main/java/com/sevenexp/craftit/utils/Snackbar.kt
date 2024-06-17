@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.sevenexp.craftit.R
 
-class TopSnackBar(private val view: View, private val context: Context) {
+class TopSnackBar(private val view: View) {
     private var snackbar: Snackbar? = null
 
     private fun show(message: String, bgColor: Int) {

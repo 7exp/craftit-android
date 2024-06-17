@@ -1,11 +1,11 @@
 package com.sevenexp.craftit.ui.update_picture
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
 import com.sevenexp.craftit.domain.usecase.UpdatePictureUseCase
-import com.sevenexp.craftit.ui.home.HomeViewModel
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,7 +35,7 @@ class UpdateProfilePictureViewModel(
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(UpdateProfilePictureViewModel::class.java)) {
                 return UpdateProfilePictureViewModel(updatePictureUseCase) as T
             }
             error("Unknown ViewModel class: $modelClass")

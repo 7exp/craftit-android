@@ -61,4 +61,7 @@
     <string name="update_profile_picture_subheader">Have favorite selfie?, upload it now.</string>
     <string name="upload_image">upload_image</string>
     <string name="skip_for_now">Skip for now</string>
+    <string name="error_failed_upload_profile_picture">Failed to upload your profile picture, try again.</string>
+    <string name="upload">Upload</string>
+    <string name="please_select_an_image_first">Please select an image first</string>
 </resources>

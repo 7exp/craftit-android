@@ -2,7 +2,7 @@ package com.sevenexp.craftit.domain.usecase
 
 import com.sevenexp.craftit.data.repository.HandicraftRepository
 import com.sevenexp.craftit.data.response.SearchResponse
-import com.sevenexp.craftit.data.response.items.FypItems
+import com.sevenexp.craftit.data.response.items.HandicraftItems
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class SearchUseCase(private val handicraftRepository: HandicraftRepository) {
     private lateinit var searchFunction: Flow<SearchResponse>
     operator fun invoke(
         query: String? = null, image: File? = null
-    ): Flow<ResultState<List<FypItems>>> = flow<ResultState<List<FypItems>>> {
+    ): Flow<ResultState<List<HandicraftItems>>> = flow<ResultState<List<HandicraftItems>>> {
         if (query != null) {
             searchFunction = handicraftRepository.searchWithQuery(query)
         } else if (image != null) {

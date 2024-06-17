@@ -3,46 +3,23 @@ package com.sevenexp.craftit.data.response.items
 import com.google.gson.annotations.SerializedName
 
 data class HandicraftItems(
+    @field:SerializedName("id") val id: String,
 
-    @field:SerializedName("waste")
-    val waste: List<String?>? = null,
+    @field:SerializedName("image") val image: String,
 
-    @field:SerializedName("image")
-    val image: String? = null,
+    @field:SerializedName("totalStep") val totalStep: Int,
 
-    @field:SerializedName("user_photo")
-    val userPhoto: String? = null,
+    @field:SerializedName("createdAt") val createdAt: String,
 
-    @field:SerializedName("totalStep")
-    val totalStep: Int? = null,
+    @field:SerializedName("name") val name: String,
 
-    @field:SerializedName("description")
-    val description: String? = null,
+    @field:SerializedName("id_user") val idUser: String,
 
-    @field:SerializedName("id_user")
-    val idUser: String? = null,
+    @field:SerializedName("created_by") val createdBy: String,
 
-    @field:SerializedName("tags")
-    val tags: List<String?>? = null,
+    @field:SerializedName("image_user") val imageUser: String,
 
-    @field:SerializedName("createdAt")
-    val createdAt: String? = null,
+    @field:SerializedName("likes") val likes: Int,
 
-    @field:SerializedName("totalImages")
-    val totalImages: Int? = null,
-
-    @field:SerializedName("createdBy")
-    val createdBy: String? = null,
-
-    @field:SerializedName("name")
-    val name: String? = null,
-
-    @field:SerializedName("id")
-    val id: String? = null,
-
-    @field:SerializedName("updatedAt")
-    val updatedAt: String? = null,
-
-    @field:SerializedName("likes")
-    val likes: Int? = null
+    @field:SerializedName("tags") val tagsItems: List<String>
 )

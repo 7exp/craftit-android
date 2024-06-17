@@ -3,7 +3,7 @@ package com.sevenexp.craftit.ui.search_result
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.sevenexp.craftit.data.response.items.FypItems
+import com.sevenexp.craftit.data.response.items.HandicraftItems
 import com.sevenexp.craftit.domain.usecase.SearchUseCase
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ class SearchResultViewModel(
 ) : ViewModel() {
 
     data class SearchState(
-        val searchResult: ResultState<List<FypItems>> = ResultState.Idle()
+        val searchResult: ResultState<List<HandicraftItems>> = ResultState.Idle()
     )
 
     private val _searchState = MutableStateFlow(SearchState())

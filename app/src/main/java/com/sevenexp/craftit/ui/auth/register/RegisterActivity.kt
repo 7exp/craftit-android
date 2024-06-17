@@ -2,6 +2,7 @@ package com.sevenexp.craftit.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +13,8 @@ import com.sevenexp.craftit.databinding.ActivityRegisterBinding
 import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.utils.FIELDTYPE
 import com.sevenexp.craftit.utils.ResultState
-import com.sevenexp.craftit.utils.ValidationTextWatcher
 import com.sevenexp.craftit.utils.TopSnackBar
+import com.sevenexp.craftit.utils.ValidationTextWatcher
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
@@ -42,18 +43,26 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun handleRegisterState(result: ResultState<String>) {
         when (result) {
-            is ResultState.Loading -> binding.btnRegister.isEnabled = false
+            is ResultState.Loading -> setLoading(true)
             is ResultState.Success -> {
                 toLogin(true)
-                binding.btnRegister.isEnabled = true
+                setLoading(false)
             }
+
             is ResultState.Error -> {
+                setLoading(false)
                 snackbar.error(result.message)
-                binding.btnRegister.isEnabled = true
             }
-            else -> binding.btnRegister.isEnabled = true
+
+            else -> setLoading(false)
         }
     }
+
+    private fun setLoading(isEnabled: Boolean) {
+        val visibility = if (isEnabled) View.VISIBLE else View.GONE
+        binding.loading.loadingComponents.visibility = visibility
+    }
+
 
     private fun setupButton() {
         with(binding) {
@@ -62,16 +71,23 @@ class RegisterActivity : AppCompatActivity() {
             btnRegister.setOnClickListener {
                 if (btnRegister.isEnabled.not()) return@setOnClickListener
                 if (isInputValid()) {
-                    viewModel.register(edName.text.toString(), edEmail.text.toString(), edPassword.text.toString())
+                    viewModel.register(
+                        edName.text.toString(),
+                        edEmail.text.toString(),
+                        edPassword.text.toString()
+                    )
                 }
             }
         }
     }
 
-    private fun toLogin(isSuccess: Boolean = false){
+    private fun toLogin(isSuccess: Boolean = false) {
         val intent = Intent(this, LoginActivity::class.java)
 
-        if(isSuccess) intent.putExtra(LoginActivity.EXTRA_MESSAGE, getString(R.string.register_success))
+        if (isSuccess) intent.putExtra(
+            LoginActivity.EXTRA_MESSAGE,
+            getString(R.string.register_success)
+        )
 
         startActivity(intent)
         finish()
@@ -84,14 +100,17 @@ class RegisterActivity : AppCompatActivity() {
                     edName.error = getString(R.string.not_empty)
                     false
                 }
+
                 edPassword.text.isNullOrEmpty() -> {
                     edPassword.error = getString(R.string.not_empty)
                     false
                 }
+
                 edEmail.text.isNullOrEmpty() -> {
                     edEmail.error = getString(R.string.not_empty)
                     false
                 }
+
                 else -> true
             }.also { isValid ->
                 if (isValid.not()) {
@@ -103,8 +122,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupFieldCheckers() {
         with(binding) {
-            edEmail.addTextChangedListener(ValidationTextWatcher(FIELDTYPE.EMAIL, getString(R.string.not_an_email), edEmail))
-            edPassword.addTextChangedListener(ValidationTextWatcher(FIELDTYPE.PASSWORD, getString(R.string.not_a_password), edPassword))
+            edEmail.addTextChangedListener(
+                ValidationTextWatcher(
+                    FIELDTYPE.EMAIL,
+                    getString(R.string.not_an_email),
+                    edEmail
+                )
+            )
+            edPassword.addTextChangedListener(
+                ValidationTextWatcher(
+                    FIELDTYPE.PASSWORD,
+                    getString(R.string.not_a_password),
+                    edPassword
+                )
+            )
         }
     }
 

@@ -20,19 +20,16 @@ class GetAllHandicraftUseCase(private val handicraftRepository: HandicraftReposi
                 } else {
                     val handicraftItems = it.data.map { item ->
                         HandicraftItems(
-                            image = item.image,
-                            userPhoto = item.userPhoto,
-                            totalStep = item.totalStep,
-                            description = item.description,
-                            idUser = item.idUser,
-                            tags = item.tags,
-                            createdAt = item.createdAt,
-                            totalImages = item.totalImages,
-                            createdBy = item.createdBy,
-                            name = item.name,
                             id = item.id,
-                            updatedAt = item.updatedAt,
-                            likes = item.likes
+                            image = item.image,
+                            totalStep = item.totalStep,
+                            createdAt = item.createdAt,
+                            name = item.name,
+                            idUser = item.idUser,
+                            createdBy = item.createdBy,
+                            imageUser = item.imageUser,
+                            likes = item.likes,
+                            tagsItems = item.tagsItems
                         )
                     }
                     emit(ResultState.Success(handicraftItems))

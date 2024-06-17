@@ -16,6 +16,9 @@ data class FypItems(
     @field:SerializedName("totalStep")
     val totalStep: Int,
 
+    @field:SerializedName("createdAt")
+    val createdAt: String,
+
     @field:SerializedName("name")
     val name: String,
 

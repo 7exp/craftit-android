@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.sevenexp.craftit.data.response.items.FypItems
+import com.sevenexp.craftit.data.response.items.HandicraftItems
 import com.sevenexp.craftit.databinding.ItemPostBinding
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() {
-    private val listPost = ArrayList<FypItems>()
+    private val listPost = ArrayList<HandicraftItems>()
 
     override fun getItemCount(): Int = listPost.size
 
@@ -30,7 +30,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
     }
 
 
-    fun setData(newItems: List<FypItems>) {
+    fun setData(newItems: List<HandicraftItems>) {
         val oldList = ArrayList(listPost)
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(oldList, newItems))
         listPost.clear()
@@ -41,7 +41,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
     inner class CraftItemViewHolder(itemView: View) : ViewHolder(itemView) {
         private val binding = ItemPostBinding.bind(itemView)
 
-        fun bind(post: FypItems) {
+        fun bind(post: HandicraftItems) {
             binding.apply {
                 likeCount.text = post.likes.toString()
                 stepCount.text = post.totalStep.toString()
@@ -56,21 +56,14 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
 
         private fun setImage(imageUrl: String, imageView: ImageView) {
             val shimmerDrawable = ShimmerDrawable()
-            val shimmer = Shimmer.AlphaHighlightBuilder()
-                .setBaseAlpha(0.8f)
-                .setHighlightAlpha(0.9f)
-                .setAutoStart(true)
-                .setTilt(32f)
-                .build()
+            val shimmer = Shimmer.AlphaHighlightBuilder().setBaseAlpha(0.8f).setHighlightAlpha(0.9f)
+                .setAutoStart(true).setTilt(32f).build()
 
             shimmerDrawable.setShimmer(shimmer)
             if (imageUrl.isNotEmpty()) {
                 try {
-                    Glide.with(binding.root)
-                        .load(imageUrl)
-                        .placeholder(shimmerDrawable)
-                        .error(shimmerDrawable)
-                        .into(imageView)
+                    Glide.with(binding.root).load(imageUrl).placeholder(shimmerDrawable)
+                        .error(shimmerDrawable).into(imageView)
                 } catch (e: Exception) {
                     Log.d("Craftit item adapter", "Failed set image for $imageUrl")
                 }
@@ -81,10 +74,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
     }
 
     class DiffUtilCallback(
-        private val oldList: List<FypItems>,
-        private val newList: List<FypItems>
-    ) :
-        DiffUtil.Callback() {
+        private val oldList: List<HandicraftItems>, private val newList: List<HandicraftItems>
+    ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size
         override fun getNewListSize(): Int = newList.size

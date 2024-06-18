@@ -23,6 +23,8 @@ class SearchViewModel(
 
     fun search(query: String? = null, image: File? = null) {
         viewModelScope.launch {
+            // Just to make sure the state is reset
+            _searchState.value = SearchState(searchResult = ResultState.Loading())
             searchUseCase(query, image).collect { result ->
                 _searchState.value = SearchState(searchResult = result)
             }

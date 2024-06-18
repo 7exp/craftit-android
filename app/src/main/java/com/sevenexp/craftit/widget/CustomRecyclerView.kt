@@ -48,30 +48,26 @@ class CustomRecyclerView(
     }
 
     private fun showEmptyView() {
-        loadingBinding.root.visibility = View.GONE
-        errorBinding.root.visibility = View.GONE
-
         emptyBinding.root.visibility = View.VISIBLE
     }
 
     private fun showErrorView() {
-        loadingBinding.root.visibility = View.GONE
-        emptyBinding.root.visibility = View.GONE
-
         errorBinding.root.visibility = View.VISIBLE
     }
 
     private fun showLoadingView() {
-        emptyBinding.root.visibility = View.GONE
-        errorBinding.root.visibility = View.GONE
-
         loadingBinding.root.visibility = View.VISIBLE
+    }
+
+    private fun showRecyclerView() {
+        recyclerView.visibility = View.VISIBLE
     }
 
     private fun hideAllViews() {
         loadingBinding.root.visibility = View.GONE
         errorBinding.root.visibility = View.GONE
         emptyBinding.root.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
     }
 
     fun showView(state: ViewStatus) {
@@ -80,16 +76,16 @@ class CustomRecyclerView(
             ViewStatus.LOADING -> showLoadingView()
             ViewStatus.ERROR -> showErrorView()
             ViewStatus.EMPTY -> showEmptyView()
-            ViewStatus.ON_DATA -> {}
+            ViewStatus.ON_DATA -> showRecyclerView()
 
         }
     }
 
     fun setOnRetryClickListener(callback: () -> Unit) {
-        errorBinding.rvBtnReload.setOnClickListener {
+        errorBinding.root.setOnClickListener {
             callback()
         }
-        emptyBinding.rvBtnReload.setOnClickListener {
+        emptyBinding.root.setOnClickListener {
             callback()
         }
     }

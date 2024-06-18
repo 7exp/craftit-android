@@ -35,7 +35,8 @@
                 android:contentDescription="@string/back"
                 android:src="@drawable/ic_back" />
 
-            <AutoCompleteTextView
+            <EditText
+                android:imeOptions="actionSearch"
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
@@ -46,7 +47,7 @@
                 android:backgroundTint="@color/base600"
                 android:completionThreshold="1"
                 android:hint="@string/hint_search"
-                android:inputType=""
+                android:inputType="text"
                 android:paddingHorizontal="16dp"
                 android:textSize="16sp" />
 

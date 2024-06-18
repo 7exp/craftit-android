@@ -1,10 +1,10 @@
 package com.sevenexp.craftit.ui.search
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +19,7 @@ import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivitySearchBinding
 import com.sevenexp.craftit.ui.adapter.SearchAdapter
 import com.sevenexp.craftit.ui.camera.CameraActivity
+import com.sevenexp.craftit.utils.Helper
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.compressImage
 import com.sevenexp.craftit.widget.CustomRecyclerView.ViewStatus
@@ -41,12 +42,20 @@ class SearchActivity : AppCompatActivity() {
     private var query: String? = null
     private var image: File? = null
     private var lastSearch: LastSearch? = null
+    private var extraQuery: String? = null
+    private var extraTake: Boolean = false
+
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == CameraActivity.RESULT_CODE && result.data != null) {
                 val imageUri = Uri.parse(result.data?.getStringExtra(CameraActivity.EXTRA_RESULT))
                 cropImage(imageUri)
+                extraTake = false // Reset the extraTake so it wont close the activity
+            } else if (result.resultCode == Activity.RESULT_CANCELED) {
+                if (extraTake) {
+                    finish()
+                }
             }
         }
 
@@ -56,8 +65,8 @@ class SearchActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        val extraQuery = intent.getStringExtra(EXTRA_QUERY)
-        val extraTake = intent.getBooleanExtra(EXTRA_TAKE, false)
+        extraQuery = intent.getStringExtra(EXTRA_QUERY)
+        extraTake = intent.getBooleanExtra(EXTRA_TAKE, false)
         if (!extraQuery.isNullOrEmpty()) {
             lastSearch = LastSearch.QUERY
             query = extraQuery
@@ -65,9 +74,10 @@ class SearchActivity : AppCompatActivity() {
             doSearch(query = extraQuery)
         } else if (extraTake) {
             startCamera()
-        } else{
+        } else {
             binding.rvSearchResult.showView(ViewStatus.EMPTY)
         }
+
 
         setupRecyclerView()
         setupObserver()
@@ -79,6 +89,9 @@ class SearchActivity : AppCompatActivity() {
             btnBack.setOnClickListener { finish() }
             btnCamera.setOnClickListener { startCamera() }
             etSearch.setOnEditorActionListener { _, actionId, _ ->
+//                etSearch.clearFocus() // <- For some reason this not working :/
+                Helper.hideKeyboard(binding.root)
+
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     doSearch(query = etSearch.text.toString())
                     true
@@ -103,21 +116,31 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
+        val recyclerView = binding.rvSearchResult
+        recyclerView.showView(ViewStatus.LOADING)
         lifecycleScope.launch {
             viewModel.searchState.collect { result ->
                 when (result.searchResult) {
                     is ResultState.Success -> {
                         val searchResult = result.searchResult.data
-                        if (!searchResult.isNullOrEmpty()) {
-                            binding.rvSearchResult.showView(ViewStatus.ON_DATA)
-                            adapter.setData(searchResult)
+                        if (searchResult.isNullOrEmpty()) {
+                            recyclerView.showView(ViewStatus.EMPTY)
                         } else {
-                            binding.rvSearchResult.showView(ViewStatus.EMPTY)
+                            recyclerView.showView(ViewStatus.ON_DATA)
+                            adapter.setData(searchResult)
                         }
                     }
 
-                    is ResultState.Loading -> binding.rvSearchResult.showView(ViewStatus.LOADING)
-                    is ResultState.Error -> binding.rvSearchResult.showView(ViewStatus.ERROR)
+                    is ResultState.Error -> {
+                        if (result.searchResult.message.lowercase() == "http 404") {
+                            recyclerView.showView(ViewStatus.EMPTY)
+                        } else {
+                            recyclerView.showView(ViewStatus.ERROR)
+                        }
+                    }
+
+                    is ResultState.Loading -> recyclerView.showView(ViewStatus.LOADING)
+
                     else -> Unit
                 }
 
@@ -128,10 +151,8 @@ class SearchActivity : AppCompatActivity() {
 
     private fun cropImage(imageUri: Uri) {
         UCrop.of(imageUri, destinationUri)
-            .withAspectRatio(1f, 1f)
             .withOptions(UCrop.Options().apply {
                 setCompressionQuality(100)
-                setHideBottomControls(true)
                 setToolbarColor(ContextCompat.getColor(this@SearchActivity, R.color.primary))
                 setStatusBarColor(
                     ContextCompat.getColor(
@@ -139,7 +160,6 @@ class SearchActivity : AppCompatActivity() {
                         R.color.primary
                     )
                 )
-                setCircleDimmedLayer(true)
                 setCompressionFormat(Bitmap.CompressFormat.JPEG)
             })
             .start(this)

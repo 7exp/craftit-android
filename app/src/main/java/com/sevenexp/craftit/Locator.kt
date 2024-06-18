@@ -19,7 +19,7 @@ import com.sevenexp.craftit.domain.usecase.UpdatePictureUseCase
 import com.sevenexp.craftit.ui.auth.login.LoginViewModel
 import com.sevenexp.craftit.ui.auth.register.RegisterViewModel
 import com.sevenexp.craftit.ui.home.HomeViewModel
-import com.sevenexp.craftit.ui.search_result.SearchResultViewModel
+import com.sevenexp.craftit.ui.search.SearchViewModel
 import com.sevenexp.craftit.ui.update_picture.UpdateProfilePictureViewModel
 import com.sevenexp.craftit.ui.welcome.WelcomeViewModel
 
@@ -76,13 +76,13 @@ object Locator {
         )
     }
     val searchResulViewModelFactory by lazy {
-        SearchResultViewModel.Factory(
+        SearchViewModel.Factory(
             SearchUseCase(handicraftRepos)
         )
     }
     val updateProfilePictureFactory by lazy {
         UpdateProfilePictureViewModel.Factory(
-            UpdatePictureUseCase(authRepos)
+            UpdatePictureUseCase(authRepos, userPrefRepos)
         )
     }
 }

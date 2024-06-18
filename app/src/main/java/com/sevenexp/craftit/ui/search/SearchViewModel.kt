@@ -1,4 +1,4 @@
-package com.sevenexp.craftit.ui.search_result
+package com.sevenexp.craftit.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
-class SearchResultViewModel(
+class SearchViewModel(
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {
 
@@ -34,8 +34,8 @@ class SearchResultViewModel(
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(SearchResultViewModel::class.java)) {
-                return SearchResultViewModel(searchUseCase) as T
+            if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+                return SearchViewModel(searchUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

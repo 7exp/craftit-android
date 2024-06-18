@@ -19,7 +19,7 @@ import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.adapter.LoadingAdapter
 import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
-import com.sevenexp.craftit.ui.search_result.SearchResultActivity
+import com.sevenexp.craftit.ui.search.SearchActivity
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.launch
 
@@ -59,8 +59,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun moveToSearchResult(query: String) {
-        val intent = Intent(requireContext(), SearchResultActivity::class.java)
-        intent.putExtra(SearchResultActivity.EXTRA_QUERY, query)
+        val intent = Intent(requireContext(), SearchActivity::class.java)
+        intent.putExtra(SearchActivity.EXTRA_QUERY, query)
         startActivity(intent)
     }
 

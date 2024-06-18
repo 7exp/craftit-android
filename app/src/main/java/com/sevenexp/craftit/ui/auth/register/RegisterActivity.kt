@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<RegisterViewModel> { Locator.registerViewModelFactory }
     private val snackbar by lazy { TopSnackBar(binding.root) }
+    var isLogin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +51,7 @@ class RegisterActivity : AppCompatActivity() {
                 toUpdateProfilePicture()
             }
 
-            is ResultState.Error -> {
-                toLogin()
-            }
+            is ResultState.Error -> toLogin()
 
             else -> Unit
         }
@@ -61,9 +60,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun handleRegisterState(result: ResultState<String>) {
         when (result) {
             is ResultState.Loading -> setLoading(true)
-            is ResultState.Success -> {
-                doLogin()
-            }
+            is ResultState.Success -> doLogin()
 
             is ResultState.Error -> {
                 setLoading(false)
@@ -75,7 +72,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun doLogin() {
-        viewModel.login(binding.edEmail.text.toString(), binding.edPassword.text.toString())
+        if (!isLogin) {
+            isLogin = true
+            viewModel.login(binding.edEmail.text.toString(), binding.edPassword.text.toString())
+        }
     }
 
     private fun setLoading(isEnabled: Boolean) {

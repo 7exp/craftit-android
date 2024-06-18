@@ -25,14 +25,17 @@ class AuthRepository(private val apiService: ApiService) : AuthRepositoryInterfa
         emit(apiService.login(LoginRequest(email, password)))
     }.flowOn(Dispatchers.IO)
 
-    override fun updateProfilePicture(image: File): Flow<UpdateProfilePictureResponse> = flow {
+    override fun updateProfilePicture(
+        userid: String,
+        image: File
+    ): Flow<UpdateProfilePictureResponse> = flow {
         try {
             val body = MultipartBody.Part.createFormData(
                 "image",
                 image.name,
                 image.asRequestBody("image/jpeg".toMediaTypeOrNull())
             )
-            emit(apiService.updateProfilePicture(body))
+            emit(apiService.updateProfilePicture(userid, body))
         } catch (e: Exception) {
             Log.e("FromRepo", "Error in upgrade profile picture", e)
         }

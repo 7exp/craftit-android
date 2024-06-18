@@ -9,5 +9,5 @@ import java.io.File
 interface AuthRepositoryInterface {
     fun register(name: String, email: String, password: String): Flow<CreateUserResponse>
     fun login(email: String, password: String): Flow<LoginResponse>
-    fun updateProfilePicture(image:File): Flow<UpdateProfilePictureResponse>
+    fun updateProfilePicture(userid:String, image:File): Flow<UpdateProfilePictureResponse>
 }

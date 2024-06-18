@@ -1,7 +1,6 @@
 [versions]
 activity = "1.9.0"
 agp = "8.4.2"
-androidImageCropper = "4.5.0"
 appcompat = "1.7.0"
 cameraCamera2 = "1.3.4"
 cameraLifecycle = "1.3.4"
@@ -15,7 +14,6 @@ espressoIntents = "3.5.1"
 espressoIdlingResource = "3.5.1"
 fragmentKtx = "1.8.0"
 glide = "4.16.0"
-glideTransformations = "4.3.0"
 imageslideshow = "0.1.2"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -36,13 +34,13 @@ roomKtx = "2.6.1"
 roundedimageview = "2.3.0"
 shimmer = "0.5.0"
 swiperefreshlayout = "1.1.0"
+ucrop = "2.2.8"
 viewpager2 = "1.1.0"
 navigationFragment = "2.7.7"
 navigationUiKtx = "2.7.7"
 datastorePreferencesCoreJvm = "1.1.1"
 
 [libraries]
-android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropper" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -88,6 +86,7 @@ shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-datastore-preferences-core-jvm = { group = "androidx.datastore", name = "datastore-preferences-core-jvm", version.ref = "datastorePreferencesCoreJvm" }
+ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

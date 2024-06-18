@@ -1,6 +1,5 @@
 package com.sevenexp.craftit.ui.update_picture
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -24,8 +23,8 @@ class UpdateProfilePictureViewModel(
 
     fun updateImage(image: File) {
         viewModelScope.launch {
-            updatePictureUseCase(image).collect {
-                _getUpdateState.update { it.copy(updateResult = it.updateResult) }
+            updatePictureUseCase(image).collect { result ->
+                _getUpdateState.update { it.copy(updateResult = result) }
             }
         }
     }

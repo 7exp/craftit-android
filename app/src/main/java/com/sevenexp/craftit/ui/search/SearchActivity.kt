@@ -1,4 +1,4 @@
-package com.sevenexp.craftit.ui.search_result
+package com.sevenexp.craftit.ui.search
 
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +18,9 @@ import com.sevenexp.craftit.widget.CustomRecyclerView.ViewStatus
 import kotlinx.coroutines.launch
 import java.io.File
 
-class SearchResultActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySearchResultBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<SearchResultViewModel>(factoryProducer = { Locator.searchResulViewModelFactory })
+    private val viewModel by viewModels<SearchViewModel>(factoryProducer = { Locator.searchResulViewModelFactory })
     private val adapter by lazy { SearchAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

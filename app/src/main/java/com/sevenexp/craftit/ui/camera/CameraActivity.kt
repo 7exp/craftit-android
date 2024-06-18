@@ -19,6 +19,8 @@ import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
+import java.io.File
+import java.io.FileOutputStream
 
 class CameraActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater) }
@@ -76,9 +78,10 @@ class CameraActivity : AppCompatActivity() {
         addPixToActivity(R.id.main, pixOptions) {
             when (it.status) {
                 PixEventCallback.Status.SUCCESS -> {
-                    val data = it.data[0]
+                    val imageUri = it.data[0]
+                    val newImageUri = copyFileToInternalStorage(imageUri, "images")
                     val intent = Intent()
-                    intent.putExtra(EXTRA_RESULT, data.toString())
+                    intent.putExtra(EXTRA_RESULT, newImageUri.toString())
                     setResult(RESULT_CODE, intent)
                     finish()
                 }
@@ -90,6 +93,18 @@ class CameraActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun copyFileToInternalStorage(uri: Uri, newDirName: String): Uri {
+        val file = File(getExternalFilesDir(newDirName), "${System.currentTimeMillis()}.jpg")
+
+        contentResolver.openInputStream(uri).use { input ->
+            FileOutputStream(file).use { output ->
+                input?.copyTo(output)
+            }
+        }
+
+        return Uri.fromFile(file)
     }
 
     private fun showDismissDialog() {
@@ -104,7 +119,10 @@ class CameraActivity : AppCompatActivity() {
             .show()
     }
 
-//    result
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.root.removeAllViews()
+    }
 
     companion object {
         const val EXTRA_RESULT = "extra_result"

@@ -95,7 +95,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        android:id="@+id/loading_components"
+        android:id="@+id/loading"
         layout="@layout/loading_components"
         android:visibility="gone" />
 

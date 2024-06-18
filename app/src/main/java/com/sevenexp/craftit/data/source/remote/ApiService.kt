@@ -28,6 +28,7 @@ interface ApiService {
     @PUT("/image/user/{UserId}")
     @Multipart
     suspend fun updateProfilePicture(
+        @Path("UserId") userId: String,
         @Part image: MultipartBody.Part
     ): UpdateProfilePictureResponse
 

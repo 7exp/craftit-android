@@ -18,7 +18,6 @@ import com.sevenexp.craftit.databinding.FragmentHomeBinding
 import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.adapter.LoadingAdapter
-import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
 import com.sevenexp.craftit.ui.search.SearchActivity
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.launch
@@ -67,7 +66,9 @@ class HomeFragment : Fragment() {
     private fun setupButtons() {
         with(binding) {
             btnImageSearch.setOnClickListener {
-                startActivity(Intent(requireContext(), ImageSearchActivity::class.java))
+                val intent = Intent(requireContext(), SearchActivity::class.java)
+                intent.putExtra(SearchActivity.EXTRA_TAKE, true)
+                startActivity(intent)
             }
         }
     }

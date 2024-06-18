@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/base"
+    android:fitsSystemWindows="true"
     tools:context=".ui.discovery.DiscoveryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/base"
-            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -41,12 +40,12 @@
                         android:layout_width="0dp"
                         android:layout_height="36dp"
                         android:background="@drawable/small_button_background"
-                        android:backgroundTint="#efefef"
-                        android:hint="Cari Kerajinan"
+                        android:backgroundTint="@color/base600"
+                        android:hint="@string/hint_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/cameraIcon"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
                         android:id="@+id/cameraIcon"
@@ -55,24 +54,26 @@
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/small_button_background"
                         android:backgroundTint="#EFEFEF"
-                        android:contentDescription="Camera Icon"
+                        android:contentDescription="@string/help_search_with_image"
                         android:padding="0dp"
                         android:src="@drawable/ic_camera"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/profile_image"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/profile_image"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_user"
+                        android:background="@drawable/small_button_background"
+                        android:contentDescription="@string/help_user_photo"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/portrait_placeholder"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:contentDescription="User Avatar"/>
+                        app:riv_corner_radius="100dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -86,18 +87,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Trending"
+                        android:text="@string/trending"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="sans-serif"
-                        android:text="More"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -107,7 +100,7 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:listitem="@layout/item_continue">
+                    tools:listitem="@layout/item_continue" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -119,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Category"
+                        android:text="@string/category"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
                 </RelativeLayout>
@@ -144,18 +137,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Recently Added"
+                        android:text="@string/recently_added"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="sans-serif"
-                        android:text="More"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -165,7 +149,7 @@
                     android:clipToPadding="false"
                     android:scrollbars="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_post"/>
+                    tools:listitem="@layout/item_post" />
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

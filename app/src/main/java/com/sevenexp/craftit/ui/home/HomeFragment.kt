@@ -2,7 +2,6 @@ package com.sevenexp.craftit.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
@@ -18,6 +18,7 @@ import com.sevenexp.craftit.databinding.FragmentHomeBinding
 import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.adapter.LoadingAdapter
+import com.sevenexp.craftit.ui.auth.login.LoginActivity
 import com.sevenexp.craftit.ui.search.SearchActivity
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.launch
@@ -39,7 +40,6 @@ class HomeFragment : Fragment() {
         setupButtons()
         setupSearchView()
     }
-
 
     private fun setupSearchView() {
         with(binding) {
@@ -92,7 +92,6 @@ class HomeFragment : Fragment() {
             viewModel.getFypState.collect { state ->
                 binding.greeting.text = getString(R.string.text_welcome, state.username)
                 fypAdapter.submitData(lifecycle, state.resultGetFyp)
-                Log.d("HOME FRAGMENT", state.resultGetFyp.toString())
 
                 when (val result = state.resultGetHistory) {
                     is ResultState.Success -> handleHistorySuccess(result)
@@ -100,8 +99,31 @@ class HomeFragment : Fragment() {
                     is ResultState.Loading -> Unit
                     is ResultState.Idle -> Unit
                 }
+
+                when (val result = state.resultGetDetail) {
+                    is ResultState.Success -> {
+                        if (result.data != null) {
+                            Glide.with(binding.root).load(result.data.data.image)
+                                .into(binding.profileImage)
+                        } else {
+                            toLogin()
+                        }
+                    }
+
+                    is ResultState.Error -> if (result.data?.status == false) toLogin() else Unit
+
+                    else -> Unit
+                }
+
             }
         }
+    }
+
+    private fun toLogin() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.putExtra(LoginActivity.EXTRA_MESSAGE, getString(R.string.someone_else_login))
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun handleHistorySuccess(result: ResultState.Success<List<HistoryEntity>>) {

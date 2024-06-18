@@ -54,7 +54,7 @@ class HandicraftRepository(
             image.asRequestBody("image/jpeg".toMediaTypeOrNull())
         )
         emit(apiService.search(image = body))
-    }
+    }.flowOn(Dispatchers.IO)
 
     override fun getHandicrafts(): Flow<GetAllHandicraftResponse> = flow {
         emit(apiService.getAllHandicraft())

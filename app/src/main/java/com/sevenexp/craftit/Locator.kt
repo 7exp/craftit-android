@@ -11,6 +11,7 @@ import com.sevenexp.craftit.data.source.local.UserPreferences
 import com.sevenexp.craftit.data.source.remote.ApiConfig
 import com.sevenexp.craftit.domain.usecase.GetAllHistoryUseCase
 import com.sevenexp.craftit.domain.usecase.GetFypUseCase
+import com.sevenexp.craftit.domain.usecase.GetUserDetailUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserUseCase
 import com.sevenexp.craftit.domain.usecase.LoginUseCase
 import com.sevenexp.craftit.domain.usecase.RegisterUseCase
@@ -72,7 +73,8 @@ object Locator {
         HomeViewModel.Factory(
             GetFypUseCase(handicraftRepos),
             GetUserUseCase(userPrefRepos),
-            GetAllHistoryUseCase(historyRepos)
+            GetAllHistoryUseCase(historyRepos),
+            GetUserDetailUseCase(authRepos)
         )
     }
     val searchResulViewModelFactory by lazy {

@@ -3,6 +3,7 @@ package com.sevenexp.craftit.data.source.remote
 import com.sevenexp.craftit.data.response.CreateUserResponse
 import com.sevenexp.craftit.data.response.FypResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
+import com.sevenexp.craftit.data.response.GetUserDetailResponse
 import com.sevenexp.craftit.data.response.LoginResponse
 import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
@@ -32,6 +33,8 @@ interface ApiService {
         @Part image: MultipartBody.Part
     ): UpdateProfilePictureResponse
 
+    @GET("/auth/info")
+    suspend fun getUserDetail(): GetUserDetailResponse
 
     @GET("/handicrafts")
     suspend fun getAllHandicraft(): GetAllHandicraftResponse

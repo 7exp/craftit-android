@@ -66,4 +66,7 @@
     <string name="please_select_an_image_first">Please select an image first</string>
     <string name="invalid_file_type">Ups thats not supported</string>
     <string name="error_failed_crop_image">failed to crop image</string>
+    <string name="category">Category</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="trending">Trending</string>
 </resources>

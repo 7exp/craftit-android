@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top|center_horizontal"
     android:orientation="vertical"
     android:visibility="gone"
     tools:visibility="visible">
 
     <ProgressBar
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"

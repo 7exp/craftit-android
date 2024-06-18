@@ -14,9 +14,13 @@ import com.sevenexp.craftit.domain.usecase.GetFypUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserUseCase
 import com.sevenexp.craftit.domain.usecase.LoginUseCase
 import com.sevenexp.craftit.domain.usecase.RegisterUseCase
+import com.sevenexp.craftit.domain.usecase.SearchUseCase
+import com.sevenexp.craftit.domain.usecase.UpdatePictureUseCase
 import com.sevenexp.craftit.ui.auth.login.LoginViewModel
 import com.sevenexp.craftit.ui.auth.register.RegisterViewModel
 import com.sevenexp.craftit.ui.home.HomeViewModel
+import com.sevenexp.craftit.ui.search.SearchViewModel
+import com.sevenexp.craftit.ui.update_picture.UpdateProfilePictureViewModel
 import com.sevenexp.craftit.ui.welcome.WelcomeViewModel
 
 object Locator {
@@ -44,27 +48,24 @@ object Locator {
     }
     private val historyRepos by lazy {
         HistoryRepository(
-            HandicraftDatabase.getDatabase(
-                requireApplication.baseContext
-            )
+            HandicraftDatabase.getDatabase(requireApplication.baseContext)
         )
     }
 
 
     // ViewModels
-    val welcomeViewModelFactory by lazy { WelcomeViewModel.Factory(GetUserUseCase(userPrefRepos)) }
+    val welcomeViewModelFactory by lazy {
+        WelcomeViewModel.Factory(GetUserUseCase(userPrefRepos))
+    }
     val registerViewModelFactory by lazy {
         RegisterViewModel.Factory(
-            RegisterUseCase(
-                requireApplication.baseContext, authRepos
-            )
+            RegisterUseCase(requireApplication.baseContext, authRepos),
+            LoginUseCase(authRepos, userPrefRepos)
         )
     }
     val loginViewModelFactory by lazy {
         LoginViewModel.Factory(
-            LoginUseCase(
-                authRepos, userPrefRepos
-            )
+            LoginUseCase(authRepos, userPrefRepos)
         )
     }
     val homeViewModelFactory by lazy {
@@ -72,6 +73,16 @@ object Locator {
             GetFypUseCase(handicraftRepos),
             GetUserUseCase(userPrefRepos),
             GetAllHistoryUseCase(historyRepos)
+        )
+    }
+    val searchResulViewModelFactory by lazy {
+        SearchViewModel.Factory(
+            SearchUseCase(handicraftRepos)
+        )
+    }
+    val updateProfilePictureFactory by lazy {
+        UpdateProfilePictureViewModel.Factory(
+            UpdatePictureUseCase(authRepos, userPrefRepos)
         )
     }
 }

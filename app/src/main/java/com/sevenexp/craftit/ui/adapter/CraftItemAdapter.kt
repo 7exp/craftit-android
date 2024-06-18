@@ -7,13 +7,13 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.databinding.ItemPostBinding
+import com.sevenexp.craftit.utils.Helper
 
 class CraftItemAdapter :
     PagingDataAdapter<FypItems, CraftItemAdapter.ViewHolder>(itemDiffCallback) {
@@ -26,11 +26,11 @@ class CraftItemAdapter :
                 setImage(post.image, postImage)
                 setImage(post.imageUser, profileImage)
                 postTitle.text = post.name
-                userLabel.text = post.tagsItems.joinToString(", ")
+                userLabel.text = post.tags.joinToString(", ")
                 userName.text = post.createdBy
                 likeCount.text = post.likes.toString()
                 stepCount.text = post.totalStep.toString()
-//                userTime.text = Helper.getTimelineUpload()
+                userTime.text = Helper.getTimelineUpload(binding.root.context, post.createdAt)
 
                 root.setOnClickListener {
 //                    val intent = Intent(root.context, DetailActivity::class.java)

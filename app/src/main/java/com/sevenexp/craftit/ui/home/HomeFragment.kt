@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
@@ -19,8 +18,7 @@ import com.sevenexp.craftit.databinding.FragmentHomeBinding
 import com.sevenexp.craftit.ui.adapter.CraftItemAdapter
 import com.sevenexp.craftit.ui.adapter.HistoryItemAdapter
 import com.sevenexp.craftit.ui.adapter.LoadingAdapter
-import com.sevenexp.craftit.ui.image_search.ImageSearchActivity
-import com.sevenexp.craftit.ui.search_result.SearchResultActivity
+import com.sevenexp.craftit.ui.search.SearchActivity
 import com.sevenexp.craftit.utils.ResultState
 import kotlinx.coroutines.launch
 
@@ -30,14 +28,8 @@ class HomeFragment : Fragment() {
     private val fypAdapter by lazy { CraftItemAdapter() }
     private lateinit var binding: FragmentHomeBinding
 
-    companion object {
-        private const val UNAUTHORIZED_HTTP_RESPONSE = "http 401"
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = FragmentHomeBinding.inflate(inflater, container, false).apply { binding = this }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,33 +44,31 @@ class HomeFragment : Fragment() {
     private fun setupSearchView() {
         with(binding) {
             searchView.setupWithSearchBar(searchbar)
-
-            searchView.editText.setOnEditorActionListener { textview, actionId, event ->
+            searchView.editText.setOnEditorActionListener { _, actionId, _ ->
                 searchbar.setText(searchView.text)
                 searchView.hide()
-                val intent = Intent(requireContext(), SearchResultActivity::class.java)
-                intent.putExtra(SearchResultActivity.EXTRA_QUERY, searchView.text)
-                startActivity(intent)
-                false
-            }
-
-            requireActivity().onBackPressedDispatcher.addCallback {
-                if (searchView.isShowing || searchView.isShown) {
-                    searchView.hide()
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    moveToSearchResult(searchView.text.toString())
+                    true
                 } else {
-                    if (!requireActivity().onBackPressedDispatcher.hasEnabledCallbacks()) {
-                        findNavController().popBackStack()
-                    }
+                    false
                 }
             }
-
         }
+    }
+
+    private fun moveToSearchResult(query: String) {
+        val intent = Intent(requireContext(), SearchActivity::class.java)
+        intent.putExtra(SearchActivity.EXTRA_QUERY, query)
+        startActivity(intent)
     }
 
     private fun setupButtons() {
         with(binding) {
             btnImageSearch.setOnClickListener {
-                startActivity(Intent(requireContext(), ImageSearchActivity::class.java))
+                val intent = Intent(requireContext(), SearchActivity::class.java)
+                intent.putExtra(SearchActivity.EXTRA_TAKE, true)
+                startActivity(intent)
             }
         }
     }
@@ -86,7 +76,8 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         with(binding) {
             with(rvForYou) {
-                adapter = fypAdapter.withLoadStateFooter(footer = LoadingAdapter { fypAdapter.retry() })
+                adapter =
+                    fypAdapter.withLoadStateFooter(footer = LoadingAdapter { fypAdapter.retry() })
                 layoutManager = LinearLayoutManager(context)
             }
             with(rvHistory) {

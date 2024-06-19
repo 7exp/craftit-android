@@ -31,8 +31,4 @@ class MainActivity : AppCompatActivity() {
             throw RuntimeException("Invalid NavHostFragment id")
         }
     }
-
-    fun checkSearchState(status: Boolean): Boolean {
-        return alreadySearch
-    }
 }

@@ -71,7 +71,7 @@
     <string name="trending">Trending</string>
     <string name="craft_image">craft image</string>
     <string name="start_crafting">Start Crafting</string>
-    <string name="instructable_search_string">https://www.instructables.com/search/projects/craft?q=</string>
+    <string name="instructable_search_string">https://www.instructables.com/search/?q=</string>
     <string name="copyright_cc_nc_sa_instructable">Copyright: CC-NC-SA - Instructable</string>
     <string name="next">Next</string>
 </resources>

@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import com.sevenexp.craftit.data.response.CreateLikeResponse
 import com.sevenexp.craftit.data.response.DetailResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
-import com.sevenexp.craftit.data.response.GetHandicraftByIdResponse
 import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
@@ -62,7 +61,7 @@ class HandicraftRepository(
     }.flowOn(Dispatchers.IO)
 
     override fun getHandicraftById(id: String): Flow<DetailResponse> = flow {
-       emit(apiService.getHandicraftById(id))
+        emit(apiService.getHandicraftById(id))
     }.flowOn(Dispatchers.IO)
 
     override fun likeHandicraft(id: Int): Flow<CreateLikeResponse> {

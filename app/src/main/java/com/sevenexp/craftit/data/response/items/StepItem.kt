@@ -1,7 +1,10 @@
 package com.sevenexp.craftit.data.response.items
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class StepItem(
 
     @field:SerializedName("id_handicraft")
@@ -27,4 +30,4 @@ data class StepItem(
 
     @field:SerializedName("updatedAt")
     val updatedAt: String
-)
+) : Parcelable

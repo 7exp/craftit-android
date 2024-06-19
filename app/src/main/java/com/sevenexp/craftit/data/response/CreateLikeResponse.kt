@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class CreateLikeResponse(
 
 	@field:SerializedName("data")
-	val data: Data,
+	val data: CreateLikeData,
 
 	@field:SerializedName("message")
 	val message: String
 )
 
-data class Data(
+data class CreateLikeData(
 
 	@field:SerializedName("id_handicraft")
 	val idHandicraft: String,

@@ -1,8 +1,11 @@
 package com.sevenexp.craftit.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.sevenexp.craftit.data.response.items.StepItem
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DetailResponse(
 
     @field:SerializedName("data")
@@ -10,8 +13,9 @@ data class DetailResponse(
 
     @field:SerializedName("message")
     val message: String
-)
+) : Parcelable
 
+@Parcelize
 data class HandicraftDetailItem(
 
     @field:SerializedName("detail_handicraft")
@@ -55,5 +59,5 @@ data class HandicraftDetailItem(
 
     @field:SerializedName("likes")
     val likes: Int
-)
+): Parcelable
 

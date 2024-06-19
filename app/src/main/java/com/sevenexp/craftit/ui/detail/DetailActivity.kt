@@ -5,16 +5,14 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.ActivityDetailBinding
-import com.sevenexp.craftit.utils.ResultState
-import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 
 class DetailActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
-    val viewModel by viewModels<DetailViewModel>(factoryProducer = { Locator.DetailViewModelFactory })
+    private val viewModel by viewModels<DetailViewModel>(factoryProducer = { Locator.DetailViewModelFactory })
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.getDetail(craftId)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, DetailFragment.newInstance(craftId, title))
+            .replace(R.id.container, DetailFragment.newInstance())
             .commit()
     }
 

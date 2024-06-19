@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepositoryInterface {
     fun getAllHistory(): Flow<List<HistoryEntity>>
-    suspend fun insertHistory(historyEntity: List<HistoryEntity>)
+    suspend fun insertHistory(historyEntity: HistoryEntity)
     fun deleteHistory(historyEntity: HistoryEntity)
     fun deleteAllHistory()
     suspend fun updateStep(historyEntity: HistoryEntity)

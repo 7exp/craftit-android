@@ -22,7 +22,7 @@ class GetAllHistoryUseCase(private val historyRepository: HistoryRepository) {
 }
 
 class InsertHistoryUseCase(private val historyRepository: HistoryRepository) {
-    suspend operator fun invoke(historyEntity: List<HistoryEntity>) {
+    suspend operator fun invoke(historyEntity: HistoryEntity) {
         historyRepository.insertHistory(historyEntity)
     }
 }

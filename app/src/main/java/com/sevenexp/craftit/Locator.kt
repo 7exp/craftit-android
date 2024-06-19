@@ -10,15 +10,19 @@ import com.sevenexp.craftit.data.source.database.HandicraftDatabase
 import com.sevenexp.craftit.data.source.local.UserPreferences
 import com.sevenexp.craftit.data.source.remote.ApiConfig
 import com.sevenexp.craftit.domain.usecase.GetAllHistoryUseCase
+import com.sevenexp.craftit.domain.usecase.GetDetailUseCase
 import com.sevenexp.craftit.domain.usecase.GetFypUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserDetailUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserUseCase
+import com.sevenexp.craftit.domain.usecase.InsertHistoryUseCase
 import com.sevenexp.craftit.domain.usecase.LoginUseCase
 import com.sevenexp.craftit.domain.usecase.RegisterUseCase
 import com.sevenexp.craftit.domain.usecase.SearchUseCase
 import com.sevenexp.craftit.domain.usecase.UpdatePictureUseCase
+import com.sevenexp.craftit.domain.usecase.UpdateStepUseCase
 import com.sevenexp.craftit.ui.auth.login.LoginViewModel
 import com.sevenexp.craftit.ui.auth.register.RegisterViewModel
+import com.sevenexp.craftit.ui.detail.DetailViewModel
 import com.sevenexp.craftit.ui.home.HomeViewModel
 import com.sevenexp.craftit.ui.search.SearchViewModel
 import com.sevenexp.craftit.ui.update_picture.UpdateProfilePictureViewModel
@@ -85,6 +89,13 @@ object Locator {
     val updateProfilePictureFactory by lazy {
         UpdateProfilePictureViewModel.Factory(
             UpdatePictureUseCase(authRepos, userPrefRepos)
+        )
+    }
+    val DetailViewModelFactory by lazy {
+        DetailViewModel.Factory(
+            GetDetailUseCase(handicraftRepos),
+            UpdateStepUseCase(historyRepos),
+            InsertHistoryUseCase(historyRepos)
         )
     }
 }

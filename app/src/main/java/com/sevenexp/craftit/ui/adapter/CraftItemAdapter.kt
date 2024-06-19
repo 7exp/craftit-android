@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -13,6 +14,7 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.databinding.ItemPostBinding
+import com.sevenexp.craftit.ui.detail.DetailActivity
 import com.sevenexp.craftit.utils.Helper
 
 class CraftItemAdapter :
@@ -33,12 +35,11 @@ class CraftItemAdapter :
                 userTime.text = Helper.getTimelineUpload(binding.root.context, post.createdAt)
 
                 root.setOnClickListener {
-//                    val intent = Intent(root.context, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_STORY_ID, story.id)
-//                    intent.putExtra(DetailActivity.EXTRA_TITLE, story.name)
-//                    intent.putExtra(DetailActivity.EXTRA_IMAGE, story.photoUrl)
-//
-//                    it.context.startActivity(intent)
+                    val intent = Intent(root.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_CRAFT_ID, post.id)
+                    intent.putExtra(DetailActivity.EXTRA_TITLE, post.name)
+
+                    it.context.startActivity(intent)
                 }
             }
         }

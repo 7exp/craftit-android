@@ -12,7 +12,7 @@ import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 @Dao
 interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertHistory(history: List<HistoryEntity>)
+    suspend fun insertHistory(history: HistoryEntity)
 
     @Update
     suspend fun updateStep(history: HistoryEntity)

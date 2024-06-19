@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.sevenexp.craftit.data.response.CreateLikeResponse
+import com.sevenexp.craftit.data.response.DetailResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetHandicraftByIdResponse
 import com.sevenexp.craftit.data.response.SearchResponse
@@ -60,9 +61,9 @@ class HandicraftRepository(
         emit(apiService.getAllHandicraft())
     }.flowOn(Dispatchers.IO)
 
-    override fun getHandicraftById(id: Int): Flow<GetHandicraftByIdResponse> {
-        TODO("Not yet implemented")
-    }
+    override fun getHandicraftById(id: String): Flow<DetailResponse> = flow {
+       emit(apiService.getHandicraftById(id))
+    }.flowOn(Dispatchers.IO)
 
     override fun likeHandicraft(id: Int): Flow<CreateLikeResponse> {
         TODO("Not yet implemented")

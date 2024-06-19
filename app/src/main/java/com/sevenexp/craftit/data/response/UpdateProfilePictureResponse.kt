@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class UpdateProfilePictureResponse(
 
 	@field:SerializedName("data")
-	val data: Data,
+	val data: HandicraftDetailItem,
 
 	@field:SerializedName("message")
 	val message: String

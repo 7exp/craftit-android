@@ -1,6 +1,7 @@
 package com.sevenexp.craftit.data.source.remote
 
 import com.sevenexp.craftit.data.response.CreateUserResponse
+import com.sevenexp.craftit.data.response.DetailResponse
 import com.sevenexp.craftit.data.response.FypResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetUserDetailResponse
@@ -56,6 +57,10 @@ interface ApiService {
         @Part image: MultipartBody.Part
     ): SearchResponse
 
+    @GET("/handicrafts/{HandicraftId}")
+    suspend fun getHandicraftById(
+        @Path("HandicraftId") handicraftId: String
+    ): DetailResponse
 
 }
 

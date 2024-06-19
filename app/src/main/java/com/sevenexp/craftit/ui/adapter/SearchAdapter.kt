@@ -1,10 +1,12 @@
 package com.sevenexp.craftit.ui.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -13,6 +15,7 @@ import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.sevenexp.craftit.data.response.items.HandicraftItems
 import com.sevenexp.craftit.databinding.ItemPostBinding
+import com.sevenexp.craftit.ui.detail.DetailActivity
 import com.sevenexp.craftit.utils.Helper
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() {
@@ -53,6 +56,13 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.CraftItemViewHolder>() 
                 userTime.text = Helper.getTimelineUpload(binding.root.context, post.createdAt)
                 setImage(post.image, postImage)
                 setImage(post.imageUser, profileImage)
+
+                root.setOnClickListener {
+                    val intent = Intent(root.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_CRAFT_ID, post.id)
+                    intent.putExtra(DetailActivity.EXTRA_TITLE, post.name)
+                    ContextCompat.startActivity(root.context, intent, null)
+                }
             }
         }
 

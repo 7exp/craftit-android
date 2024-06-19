@@ -15,7 +15,7 @@ class HistoryRepository(
         emit(handicraftDatabase.historyDao().getAllHistory())
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun insertHistory(historyEntities: List<HistoryEntity>) {
+    override suspend fun insertHistory(historyEntities: HistoryEntity) {
         handicraftDatabase.historyDao().insertHistory(historyEntities)
     }
 

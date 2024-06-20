@@ -10,9 +10,11 @@ import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
+import com.sevenexp.craftit.data.source.database.entity.TrendingEntity
 import com.sevenexp.craftit.data.source.local.UserPreferences
 import com.sevenexp.craftit.data.source.remote.ApiService
 import com.sevenexp.craftit.data.source.remote.paging.FypRemoteMediator
+import com.sevenexp.craftit.data.source.remote.paging.TrendingRemoteMediator
 import com.sevenexp.craftit.domain.interfaces.HandicraftRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +44,19 @@ class HandicraftRepository(
         ).flow
     }
 
+    override fun getTrendingStream(): Flow<PagingData<TrendingEntity>> {
+        val pagingSourceFactory = { database.trendingDao().getTrendingItems() }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+            ),
+            remoteMediator = TrendingRemoteMediator(apiService, database),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
     override fun searchWithQuery(query: String): Flow<SearchResponse> = flow {
         emit(apiService.search(query = query))
     }.flowOn(Dispatchers.IO)
@@ -49,9 +64,7 @@ class HandicraftRepository(
 
     override fun searchWithImage(image: File): Flow<SearchResponse> = flow {
         val body = MultipartBody.Part.createFormData(
-            "image",
-            image.name,
-            image.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            "image", image.name, image.asRequestBody("image/jpeg".toMediaTypeOrNull())
         )
         emit(apiService.search(image = body))
     }.flowOn(Dispatchers.IO)

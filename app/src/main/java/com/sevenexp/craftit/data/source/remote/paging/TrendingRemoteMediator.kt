@@ -5,21 +5,19 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
 import com.sevenexp.craftit.data.source.database.RemoteKeys
-import com.sevenexp.craftit.data.source.local.UserPreferences
+import com.sevenexp.craftit.data.source.database.entity.TrendingEntity
 import com.sevenexp.craftit.data.source.remote.ApiService
 
 @OptIn(ExperimentalPagingApi::class)
-class FypRemoteMediator(
+class TrendingRemoteMediator(
     private val apiService: ApiService,
     private val database: HandicraftDatabase,
-    private val preferences: UserPreferences
-) : RemoteMediator<Int, FypItems>() {
+) : RemoteMediator<Int, TrendingEntity>() {
 
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, FypItems>
+        loadType: LoadType, state: PagingState<Int, TrendingEntity>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
@@ -45,23 +43,27 @@ class FypRemoteMediator(
         }
 
         return try {
-            val userId = preferences.getUserId()
-            val response = apiService.getFyp(userId, page)
+            val response = apiService.getTrending(page)
             val endOfPaginationReached = response.data.isEmpty()
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     database.remoteKeysDao().deleteRemoteKeys()
-                    database.fypDao().deleteAll()
+                    database.trendingDao().deleteAll()
                 }
 
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = response.data.map {
-                    RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey, source = "fyp")
+                val keys = response.data.map { key ->
+                    RemoteKeys(
+                        id = key.id,
+                        prevKey = prevKey,
+                        nextKey = nextKey,
+                        source = "trending"
+                    )
                 }
                 database.remoteKeysDao().insertAll(keys)
-                database.fypDao().insertFyp(response.data)
+                database.trendingDao().insertTrending(response.data)
             }
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
@@ -70,22 +72,22 @@ class FypRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, FypItems>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, TrendingEntity>): RemoteKeys? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
-            database.remoteKeysDao().getRemoteKeysId(data.id, "fyp")
+            database.remoteKeysDao().getRemoteKeysId(data.id, "trending")
         }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, FypItems>): RemoteKeys? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, TrendingEntity>): RemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
-            database.remoteKeysDao().getRemoteKeysId(data.id, "fyp")
+            database.remoteKeysDao().getRemoteKeysId(data.id, "trending")
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, FypItems>): RemoteKeys? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, TrendingEntity>): RemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                database.remoteKeysDao().getRemoteKeysId(id, "fyp")
+                database.remoteKeysDao().getRemoteKeysId(id, "trending")
             }
         }
     }

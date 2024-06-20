@@ -7,6 +7,7 @@ import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetUserDetailResponse
 import com.sevenexp.craftit.data.response.LoginResponse
 import com.sevenexp.craftit.data.response.SearchResponse
+import com.sevenexp.craftit.data.response.TrendingResponse
 import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
 import com.sevenexp.craftit.data.source.remote.request.LoginRequest
 import com.sevenexp.craftit.data.source.remote.request.RegisterRequest
@@ -45,6 +46,11 @@ interface ApiService {
         @Path("userid") userId: String,
         @Query("page") page: Int
     ): FypResponse
+
+    @GET("/dashboard/trending")
+    suspend fun getTrending(
+        @Query("page") page: Int
+    ): TrendingResponse
 
     @GET("/handicrafts/search")
     suspend fun search(

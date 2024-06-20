@@ -6,7 +6,7 @@ import com.sevenexp.craftit.data.response.items.FypItems
 data class FypResponse(
 
 	@field:SerializedName("pagination")
-	val pagination: Pagination,
+	val pagination: TrendingPagination,
 
 	@field:SerializedName("data")
 	val data: List<FypItems>,
@@ -15,7 +15,7 @@ data class FypResponse(
 	val message: String
 )
 
-data class Pagination(
+data class FypPagination(
 
 	@field:SerializedName("lastPage")
 	val lastPage: Int,

@@ -25,5 +25,8 @@
     <color name="primary_light_color_pix">@color/primary100</color>
     <color name="surface_color_pix">@color/base</color>
     <color name="text_color_pix">@color/onBase</color>
+    <color name="secondary">#d2f377</color>
+    <color name="primary200">#6bf978</color>
+    <color name="primary300">#33fcc1</color>
 
 </resources>

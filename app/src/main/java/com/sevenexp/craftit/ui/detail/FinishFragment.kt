@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.sevenexp.craftit.R
 import com.sevenexp.craftit.databinding.FragmentFinishBinding
 
 class FinishFragment : Fragment() {
@@ -18,6 +19,12 @@ class FinishFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding.btnBackToDetail.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, DetailFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
         return binding.root
     }
 

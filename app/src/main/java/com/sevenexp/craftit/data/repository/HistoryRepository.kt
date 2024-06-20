@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.data.repository
 
+import android.util.Log
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.domain.interfaces.HistoryRepositoryInterface
@@ -15,8 +16,8 @@ class HistoryRepository(
         emit(handicraftDatabase.historyDao().getAllHistory())
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun insertHistory(historyEntities: HistoryEntity) {
-        handicraftDatabase.historyDao().insertHistory(historyEntities)
+    override suspend fun insertHistory(historyEntity: HistoryEntity) {
+        handicraftDatabase.historyDao().insertHistory(historyEntity)
     }
 
     override fun deleteHistory(historyEntity: HistoryEntity) {

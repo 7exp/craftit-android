@@ -2,6 +2,7 @@ package com.sevenexp.craftit.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,6 +130,7 @@ class HomeFragment : Fragment() {
     private fun handleHistorySuccess(result: ResultState.Success<List<HistoryEntity>>) {
         val visible = View.VISIBLE
         result.data?.let { histories ->
+            Log.d("HomeFragment", "histories: $histories")
             if (histories.isEmpty()) {
                 hideHistory()
             } else {

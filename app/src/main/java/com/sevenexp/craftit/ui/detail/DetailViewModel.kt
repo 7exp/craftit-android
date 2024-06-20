@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -41,17 +42,10 @@ class DetailViewModel(
         }
     }
 
-    fun updateStep(stepItem: StepItem, totalStep: Int) {
-
+    fun updateStep(stepItem: StepItem, historyEntity: HistoryEntity) {
         viewModelScope.launch {
             _detailState.value = _detailState.value.copy(resultStep = ResultState.Success(stepItem))
-            val historyEntity = HistoryEntity(
-                totalStep = totalStep,
-                id = stepItem.id,
-                image = stepItem.image,
-                name = stepItem.name,
-                currentStep = stepItem.stepNumber,
-            )
+
             updateStepUseCase(historyEntity)
         }
     }

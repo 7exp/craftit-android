@@ -76,4 +76,6 @@
     <string name="next">Next</string>
     <string name="data_not_found">Ups something went wrong, try another recipes</string>
     <string name="back_to_detail">Back to detail</string>
+    <string name="finish_header">You have made it, by recycling the waste you have saved the environment.</string>
+    <string name="congratulations">Congratulations!</string>
 </resources>

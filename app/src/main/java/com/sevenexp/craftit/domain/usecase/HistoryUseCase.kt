@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.domain.usecase
 
+import android.util.Log
 import com.sevenexp.craftit.data.repository.HistoryRepository
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.utils.ResultState

@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.sevenexp.craftit.Locator
 import com.sevenexp.craftit.R
+import com.sevenexp.craftit.data.response.HandicraftDetailItem
 import com.sevenexp.craftit.data.response.items.StepItem
+import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.databinding.ActivityDetailBinding
 import com.sevenexp.craftit.utils.ResultState
 import com.sevenexp.craftit.utils.TopSnackBar
@@ -21,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
     private val viewModel by viewModels<DetailViewModel>(factoryProducer = { Locator.DetailViewModelFactory })
     private val snackBar by lazy { TopSnackBar(binding.root) }
     private var steps: List<StepItem> = emptyList()
+    private var recipe: HandicraftDetailItem? = null
     private var totalStep = 0
     private var currentStep = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +52,12 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setupListener() {
         lifecycleScope.launch {
-            viewModel.detailState.collect {
-                when (val result = it.resultGetDetail) {
+            viewModel.detailState.collect { res ->
+                when (val result = res.resultGetDetail) {
                     is ResultState.Success -> {
                         if (result.data != null) {
                             totalStep = result.data.data.totalStep
+                            recipe = result.data.data
                             steps = result.data.data.detailHandicraft.sortedBy { it.stepNumber }
                         } else {
                             snackBar.error(getString(R.string.data_not_found))
@@ -68,10 +72,12 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setupButton() {
         with(binding) {
             btnStart.setOnClickListener {
-                viewModel.updateStep(steps[0], totalStep)
+                viewModel.insertHistory(getHistoryEntity(0))
+                viewModel.updateStep(steps[0], getHistoryEntity(0))
                 currentStep = 0
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, StepsFragment.newInstance(totalStep))
@@ -80,17 +86,15 @@ class DetailActivity : AppCompatActivity() {
                 btnStart.hide()
                 btnBack.show()
                 btnNex.show()
-                btnToDetail.hide()
             }
             btnNex.setOnClickListener {
                 currentStep++
                 if (currentStep < totalStep) {
-                    viewModel.updateStep(steps[currentStep], totalStep)
+                    viewModel.updateStep(steps[currentStep],  getHistoryEntity(currentStep))
                 } else {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, FinishFragment.newInstance())
                         .commit()
-                    btnToDetail.show()
                     btnStart.hide()
                     btnBack.hide()
                     btnNex.hide()
@@ -99,7 +103,7 @@ class DetailActivity : AppCompatActivity() {
             btnBack.setOnClickListener {
                 currentStep--
                 if (currentStep >= 0) {
-                    viewModel.updateStep(steps[currentStep], totalStep)
+                    viewModel.updateStep(steps[currentStep], getHistoryEntity(currentStep))
                 } else {
                     supportFragmentManager.popBackStack()
                     btnStart.show()
@@ -110,6 +114,14 @@ class DetailActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun getHistoryEntity(currentStep: Int) = HistoryEntity(
+        totalStep = totalStep,
+        id = recipe!!.id,
+        image = recipe!!.image,
+        name = recipe!!.name,
+        currentStep = currentStep,
+    )
 
     companion object {
         const val EXTRA_CRAFT_ID = "extra_id"

@@ -6,6 +6,7 @@ import com.sevenexp.craftit.data.response.FypResponse
 import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.GetUserDetailResponse
 import com.sevenexp.craftit.data.response.LoginResponse
+import com.sevenexp.craftit.data.response.RecentResponse
 import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.TrendingResponse
 import com.sevenexp.craftit.data.response.UpdateProfilePictureResponse
@@ -51,6 +52,11 @@ interface ApiService {
     suspend fun getTrending(
         @Query("page") page: Int
     ): TrendingResponse
+
+    @GET("/dashboard/recently")
+    suspend fun getRecent(
+        @Query("page") page: Int
+    ): RecentResponse
 
     @GET("/handicrafts/search")
     suspend fun search(

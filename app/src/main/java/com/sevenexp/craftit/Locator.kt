@@ -12,6 +12,8 @@ import com.sevenexp.craftit.data.source.remote.ApiConfig
 import com.sevenexp.craftit.domain.usecase.GetAllHistoryUseCase
 import com.sevenexp.craftit.domain.usecase.GetDetailUseCase
 import com.sevenexp.craftit.domain.usecase.GetFypUseCase
+import com.sevenexp.craftit.domain.usecase.GetRecentUseCase
+import com.sevenexp.craftit.domain.usecase.GetTrendingUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserDetailUseCase
 import com.sevenexp.craftit.domain.usecase.GetUserUseCase
 import com.sevenexp.craftit.domain.usecase.InsertHistoryUseCase
@@ -23,6 +25,7 @@ import com.sevenexp.craftit.domain.usecase.UpdateStepUseCase
 import com.sevenexp.craftit.ui.auth.login.LoginViewModel
 import com.sevenexp.craftit.ui.auth.register.RegisterViewModel
 import com.sevenexp.craftit.ui.detail.DetailViewModel
+import com.sevenexp.craftit.ui.discovery.DiscoveryViewModel
 import com.sevenexp.craftit.ui.home.HomeViewModel
 import com.sevenexp.craftit.ui.search.SearchViewModel
 import com.sevenexp.craftit.ui.update_picture.UpdateProfilePictureViewModel
@@ -96,6 +99,12 @@ object Locator {
             GetDetailUseCase(handicraftRepos),
             UpdateStepUseCase(historyRepos),
             InsertHistoryUseCase(historyRepos)
+        )
+    }
+    val DiscoveryViewModelFactory by lazy {
+        DiscoveryViewModel.Factory(
+            GetTrendingUseCase(handicraftRepos),
+            GetRecentUseCase(handicraftRepos)
         )
     }
 }

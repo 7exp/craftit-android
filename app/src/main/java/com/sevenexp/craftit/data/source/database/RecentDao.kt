@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sevenexp.craftit.data.source.database.entity.TrendingEntity
+import com.sevenexp.craftit.data.source.database.entity.RecentEntity
 
 @Dao
-interface TrendingDao {
-    @Query("SELECT * FROM trending")
-    fun getTrendingItems(): PagingSource<Int, TrendingEntity>
+interface RecentDao {
+    @Query("SELECT * FROM recent")
+    fun getRecentItems(): PagingSource<Int, RecentEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTrending(items: List<TrendingEntity>)
+    suspend fun insertRecent(items: List<RecentEntity>)
 
-    @Query("DELETE FROM trending")
+    @Query("DELETE FROM recent")
     suspend fun deleteAll()
 }

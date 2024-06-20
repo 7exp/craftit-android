@@ -54,4 +54,19 @@
         app:layout_constraintTop_toBottomOf="@id/searchBar"
         tools:listitem="@layout/item_post" />
 
+    <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/hint_search"
+        android:searchIcon="@drawable/ic_magnifier"
+        app:backgroundTint="@color/base"
+        app:layout_anchor="@id/searchbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@color/base"
+        app:searchHintIcon="@drawable/ic_magnifier"
+        app:searchIcon="@drawable/ic_magnifier" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "trending")
-data class TrendingEntity(
+
+@Entity(tableName = "recent")
+data class RecentEntity(
     @PrimaryKey @field:SerializedName("id") val id: String,
 
     @field:SerializedName("image") val image: String,

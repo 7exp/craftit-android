@@ -10,10 +10,12 @@ import com.sevenexp.craftit.data.response.GetAllHandicraftResponse
 import com.sevenexp.craftit.data.response.SearchResponse
 import com.sevenexp.craftit.data.response.items.FypItems
 import com.sevenexp.craftit.data.source.database.HandicraftDatabase
+import com.sevenexp.craftit.data.source.database.entity.RecentEntity
 import com.sevenexp.craftit.data.source.database.entity.TrendingEntity
 import com.sevenexp.craftit.data.source.local.UserPreferences
 import com.sevenexp.craftit.data.source.remote.ApiService
 import com.sevenexp.craftit.data.source.remote.paging.FypRemoteMediator
+import com.sevenexp.craftit.data.source.remote.paging.RecentRemoteMediator
 import com.sevenexp.craftit.data.source.remote.paging.TrendingRemoteMediator
 import com.sevenexp.craftit.domain.interfaces.HandicraftRepositoryInterface
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +55,19 @@ class HandicraftRepository(
                 enablePlaceholders = false,
             ),
             remoteMediator = TrendingRemoteMediator(apiService, database),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    override fun getRecentStream(): Flow<PagingData<RecentEntity>> {
+        val pagingSourceFactory = { database.recentDao().getRecentItems() }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+            ),
+            remoteMediator = RecentRemoteMediator(apiService, database),
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }

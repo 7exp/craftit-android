@@ -83,21 +83,17 @@ class DetailActivity : AppCompatActivity() {
                     .replace(R.id.container, StepsFragment.newInstance(totalStep))
                     .addToBackStack(null)
                     .commit()
-                btnStart.hide()
-                btnBack.show()
-                btnNex.show()
+                setupVisibleButton(BTN_VISIBILITY.STEP)
             }
             btnNex.setOnClickListener {
                 currentStep++
                 if (currentStep < totalStep) {
-                    viewModel.updateStep(steps[currentStep],  getHistoryEntity(currentStep))
+                    viewModel.updateStep(steps[currentStep], getHistoryEntity(currentStep))
                 } else {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, FinishFragment.newInstance())
                         .commit()
-                    btnStart.hide()
-                    btnBack.hide()
-                    btnNex.hide()
+                    setupVisibleButton(BTN_VISIBILITY.NONE)
                 }
             }
             btnBack.setOnClickListener {
@@ -106,13 +102,38 @@ class DetailActivity : AppCompatActivity() {
                     viewModel.updateStep(steps[currentStep], getHistoryEntity(currentStep))
                 } else {
                     supportFragmentManager.popBackStack()
-                    btnStart.show()
-                    btnBack.hide()
-                    btnNex.hide()
+                    setupVisibleButton(BTN_VISIBILITY.DETAIL)
                 }
             }
         }
 
+    }
+
+    fun setupVisibleButton(id: BTN_VISIBILITY) {
+        when (id) {
+            BTN_VISIBILITY.DETAIL -> {
+                binding.btnNex.hide()
+                binding.btnBack.hide()
+                binding.btnStart.show()
+            }
+
+            BTN_VISIBILITY.STEP -> {
+                binding.btnNex.show()
+                binding.btnBack.show()
+                binding.btnStart.hide()
+            }
+
+            BTN_VISIBILITY.NONE -> {
+                binding.btnNex.hide()
+                binding.btnBack.hide()
+                binding.btnStart.hide()
+            }
+
+        }
+    }
+
+    enum class BTN_VISIBILITY {
+        DETAIL, STEP, NONE
     }
 
     private fun getHistoryEntity(currentStep: Int) = HistoryEntity(

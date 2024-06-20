@@ -1,5 +1,6 @@
 package com.sevenexp.craftit.ui.adapter
 
+import android.content.Intent
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
@@ -16,6 +17,7 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.sevenexp.craftit.R
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.databinding.ItemContinueBinding
+import com.sevenexp.craftit.ui.detail.DetailActivity
 
 class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HistoryViewHolder>() {
     private val listPost = ArrayList<HistoryEntity>()
@@ -31,9 +33,6 @@ class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HistoryViewHo
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.bind(listPost[position])
-        holder.itemView.setOnClickListener {
-//            TODO: Implement intent to detail activity
-        }
     }
 
 
@@ -61,6 +60,13 @@ class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HistoryViewHo
                 setImage(post.image ?: "", ivThumbnail)
                 postTitle.text = post.name
                 stepCount.text = spannable
+
+                root.setOnClickListener {
+                    val intent = Intent(root.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_CRAFT_ID, post.id)
+                    intent.putExtra(DetailActivity.EXTRA_TITLE, post.name)
+                    root.context.startActivity(intent)
+                }
             }
         }
 

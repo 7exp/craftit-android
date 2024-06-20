@@ -24,6 +24,7 @@ class FinishFragment : Fragment() {
                 .replace(R.id.container, DetailFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
+            (activity as DetailActivity).setupVisibleButton(DetailActivity.BTN_VISIBILITY.DETAIL)
         }
         return binding.root
     }

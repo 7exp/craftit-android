@@ -9,11 +9,9 @@
     <ImageView
         android:id="@+id/iv_craft_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/craft_image"
-        android:maxHeight="500dp"
-        android:minHeight="300dp"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,9 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="200dp"
-                android:minHeight="800dp"
                 android:background="@drawable/default_rounded_background"
                 android:backgroundTint="@color/base"
+                android:minHeight="800dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 

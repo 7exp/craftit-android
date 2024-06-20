@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.sevenexp.craftit.data.response.DetailResponse
+import com.sevenexp.craftit.data.response.items.StepItem
 import com.sevenexp.craftit.data.source.database.entity.HistoryEntity
 import com.sevenexp.craftit.domain.usecase.GetDetailUseCase
 import com.sevenexp.craftit.domain.usecase.InsertHistoryUseCase
@@ -19,7 +20,8 @@ class DetailViewModel(
     private val insertHistoryUseCase: InsertHistoryUseCase
 ) : ViewModel() {
     data class DetailState(
-        val resultGetDetail: ResultState<DetailResponse> = ResultState.Idle()
+        val resultGetDetail: ResultState<DetailResponse> = ResultState.Idle(),
+        val resultStep: ResultState<StepItem> = ResultState.Idle()
     )
 
     private val _detailState = MutableStateFlow(DetailState())
@@ -39,8 +41,17 @@ class DetailViewModel(
         }
     }
 
-    fun updateStep(historyEntity: HistoryEntity) {
+    fun updateStep(stepItem: StepItem, totalStep: Int) {
+
         viewModelScope.launch {
+            _detailState.value = _detailState.value.copy(resultStep = ResultState.Success(stepItem))
+            val historyEntity = HistoryEntity(
+                totalStep = totalStep,
+                id = stepItem.id,
+                image = stepItem.image,
+                name = stepItem.name,
+                currentStep = stepItem.stepNumber,
+            )
             updateStepUseCase(historyEntity)
         }
     }

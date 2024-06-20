@@ -74,4 +74,6 @@
     <string name="instructable_search_string">https://www.instructables.com/search/?q=</string>
     <string name="copyright_cc_nc_sa_instructable">Copyright: CC-NC-SA - Instructable</string>
     <string name="next">Next</string>
+    <string name="data_not_found">Ups something went wrong, try another recipes</string>
+    <string name="back_to_detail">Back to detail</string>
 </resources>

@@ -6,36 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".ui.bookmark.BookmarkFragment">
 
-    <com.google.android.material.search.SearchBar
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="search"
-        app:layout_constraintEnd_toStartOf="@+id/cameraButton"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </com.google.android.material.search.SearchBar>
 
-    <ImageButton
-        android:id="@+id/cameraButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        android:src="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/searchBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBar"
-        tools:ignore="ContentDescription" />
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/searchbar"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:background="@drawable/small_button_background"
+            android:backgroundTint="#efefef"
+            android:hint="@string/hint_search"
+            android:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_image_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_image_search"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/small_button_background"
+            android:backgroundTint="#EFEFEF"
+            android:contentDescription="@string/help_search_with_image"
+            android:padding="0dp"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-    <androidx.recyclerview.widget.RecyclerView
+    <com.sevenexp.craftit.widget.CustomRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"

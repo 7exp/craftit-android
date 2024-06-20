@@ -15,7 +15,7 @@ data class HandicraftItems(
 
     @field:SerializedName("id_user") val idUser: String,
 
-    @field:SerializedName("created_by") val createdBy: String,
+    @field:SerializedName("createdBy") val createdBy: String,
 
     @field:SerializedName("image_user") val imageUser: String,
 

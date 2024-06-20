@@ -1,60 +1,81 @@
 package com.sevenexp.craftit.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sevenexp.craftit.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
+import com.sevenexp.craftit.data.response.items.StepItem
+import com.sevenexp.craftit.databinding.FragmentStepsBinding
+import com.sevenexp.craftit.utils.ResultState
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StepsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StepsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val binding by lazy { FragmentStepsBinding.inflate(layoutInflater) }
+    private val viewModel by activityViewModels<DetailViewModel>()
+    private val shimmerDrawable = ShimmerDrawable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        shimmerDrawable.setShimmer(
+            Shimmer.AlphaHighlightBuilder()
+                .setBaseAlpha(0.9f)
+                .setHighlightAlpha(1f)
+                .setAutoStart(true)
+                .setTilt(35f)
+                .build()
+        )
+        binding.ibBack.setOnClickListener { requireActivity().finish() }
+        setupListener()
+    }
+
+    private fun setupListener() {
+        lifecycleScope.launch {
+            viewModel.detailState.collect {
+                when (val result = it.resultStep) {
+                    is ResultState.Success -> it.resultStep.data?.let { it1 -> setupView(it1) }
+
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun setupView(data: StepItem) {
+        val totalStep = arguments?.getInt("totalStep")
+        with(binding) {
+            tvTitle.text = data.name
+            tvCurrentStep.text = data.stepNumber.toString()
+            tvTotalStep.text = totalStep.toString()
+            tvDescription.text = data.description
+            Glide.with(requireContext())
+                .load(data.image)
+                .placeholder(shimmerDrawable)
+                .into(ivCraftImage)
+
+
+            val progress = (data.stepNumber.toFloat() / totalStep!!.toFloat()) * 100
+            lpiProgress.progress = progress.toInt()
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_steps, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StepsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StepsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(totalStep: Int) = StepsFragment().apply {
+            arguments = Bundle().apply {
+                putInt("totalStep", totalStep)
             }
+        }
     }
 }

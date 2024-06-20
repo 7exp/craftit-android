@@ -7,24 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sevenexp.craftit.databinding.FragmentFinishBinding
 
-private const val CRAFT_ID = "craft_id"
-private const val CRAFT_TITLE = "title"
-private const val CRAFT_IMAGE = "image"
-
 class FinishFragment : Fragment() {
     private val binding by lazy { FragmentFinishBinding.inflate(layoutInflater) }
 
-    private var storyId: String? = null
-    private var craftTitle: String? = null
-    private var craftImage: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            storyId = it.getString(CRAFT_ID)
-            craftTitle = it.getString(CRAFT_TITLE)
-            craftImage = it.getString(CRAFT_IMAGE)
-        }
     }
 
     override fun onCreateView(
@@ -36,13 +23,6 @@ class FinishFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(craftId: String, title: String, image: String) =
-            FinishFragment().apply {
-                arguments = Bundle().apply {
-                    putString(CRAFT_ID, craftId)
-                    putString(CRAFT_TITLE, title)
-                    putString(CRAFT_IMAGE, image)
-                }
-            }
+        fun newInstance() = FinishFragment()
     }
 }
